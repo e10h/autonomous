@@ -43,7 +43,11 @@ def main():
         (OUTPUT_DIR / "complete").unlink()
     time.sleep(1.0)
 
-    # 2. Start Webots
+    # 2. Build course (ensures ghost planned path and growing segments are up to date)
+    print(f"[DEMO] Generating A/B course world and route specifications...")
+    subprocess.run([sys.executable, str(DEMO_DIR / "course.py"), str(DEMO_DIR)], check=True)
+
+    # 3. Start Webots
     print(f"[DEMO] Launching Webots: {WORLD_FILE}")
     webots_proc = subprocess.Popen([WEBOTS_BIN, "--mode=realtime", str(WORLD_FILE)])
 

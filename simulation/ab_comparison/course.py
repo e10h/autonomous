@@ -16,8 +16,15 @@ Terrain (Webots frame, per lane):
 """
 import json
 import math
+import os
 from pathlib import Path
+import sys
 import time
+
+repo_root = str(Path(__file__).resolve().parents[2])
+if repo_root not in sys.path:
+    sys.path.insert(0, repo_root)
+
 import numpy as np
 from autonomous_state_machine.terrain import TerrainGrid, TraversabilityLimits
 from autonomous_state_machine.directional_planner import DirectionalThetaStar
@@ -34,6 +41,112 @@ SLOPE_TOP_Y = 7.0
 CHASM_DROP = 7.0
 LIMITS = TraversabilityLimits(cliff_deg=22, climb_deg=22, descent_deg=22, roll_deg=12)
 LANE_OFFSETS = {'isotropic': -19, 'anisotropic': 19}
+ROCK_POS = (2.0, 9.0)
+ROCK_RADIUS = 0.70
+
+ROCK_BASE_VERTICES = [
+    (0.0282555, -0.0123062, 0.0493622), (0.0514526, 0.0516891, 0.0471497),
+    (0.0213318, 0.0449829, 0.0468445), (0.0608444, 0.0574036, 0.032486),
+    (-0.01614, 0.0463638, 0.0209618), (-0.0175323, 0.0003681, 0.0294952),
+    (0.0659485, 0.0076895, -0.0014772), (0.029644, -0.0428085, 0.0261192),
+    (-0.0213318, -0.040596, 0.0248642), (0.0575638, -0.0246735, 0.0051146),
+    (0.0346298, 0.055397, 0.0064392), (-0.0625458, -0.0035353, 0.0255203),
+    (0.004591, -0.0539703, -0.0393677), (-0.0445328, -0.031601, 0.0104427),
+    (-0.0316048, -0.0461426, -0.0520782), (0.0381699, -0.018795, -0.0489807),
+    (-0.0555496, -0.0468445, -0.0379105), (-0.0018876, 0.0425644, -0.0396271),
+    (-0.066803, -0.0030928, -0.029541), (-0.0359573, -0.0154018, -0.0562286),
+    (-0.0384674, 0.0333023, -0.0195274)
+]
+ROCK_COORD_INDEX = (
+    '2 0 1 -1, 1 0 3 -1, 4 0 2 -1, 0 4 5 -1, 3 0 6 -1, 7 0 5 -1, 6 0 7 -1, 8 7 5 -1, '
+    '6 7 9 -1, 10 3 6 -1, 11 5 4 -1, 11 8 5 -1, 12 7 8 -1, 12 9 7 -1, 6 9 12 -1, '
+    '13 8 11 -1, 14 12 8 -1, 15 6 12 -1, 15 10 6 -1, 13 11 16 -1, 16 8 13 -1, '
+    '14 8 16 -1, 15 12 14 -1, 10 15 17 -1, 18 11 4 -1, 16 11 18 -1, 14 16 19 -1, '
+    '15 14 19 -1, 19 16 18 -1, 19 17 15 -1, 18 20 19 -1, 17 19 20 -1, 4 20 18 -1, '
+    '4 17 20 -1, 4 10 17 -1, 2 10 4 -1, 1 3 10 -1, 1 10 2 -1'
+)
+ROCK_TEX_COORD = (
+    '0.6519888 0.9328683, 0.7415154 0.7278224, 0.7583726 0.9886748, 0.7586426 0.7597129, '
+    '0.8404567 0.5771889, 0.7916614 0.8227384, 0.4865306 0.8964634, 0.7415154 0.7278224, '
+    '0.6519888 0.9328683, 0.7415154 0.7278224, 0.4865306 0.8964634, 0.5380667 0.7254828, '
+    '0.7916614 0.8227384, 0.8404567 0.5771889, 0.9466503 0.8113729, 0.9085732 1.0, '
+    '0.758906 0.9799206, 0.7586426 0.8227384, 0.9466503 0.8113729, 0.8404567 0.5771889, '
+    '0.9469442 0.5691234, 0.563445 0.5691234, 0.7586426 0.613364, 0.5380667 0.7254828, '
+    '0.1250233 0.861748, 0.124784 0.633634, 0.1660463 0.739833, 0.1450739 0.0904869, '
+    '0.2137036 0.0, 0.3691042 0.1395276, 0.3694084 0.6643548, 0.5380667 0.7254828, '
+    '0.4865306 0.8964634, 0.3694084 0.6643548, 0.563445 0.5691234, 0.5380667 0.7254828, '
+    '0.6877791 0.289174, 0.8347366 0.0551657, 0.9323464 0.1935238, 0.6877791 0.289174, '
+    '0.6879001 0.0, 0.8347366 0.0551657, 0.9323465 0.0864366, 0.9999999 0.1926008, '
+    '0.9326506 0.4389925, 0.3031699 0.8246872, 0.3694084 0.8976216, 0.1660463 0.8671747, '
+    '0.7113631 0.4050269, 0.6877791 0.289174, 0.9323464 0.1935238, 0.0 0.8388469, '
+    '0.1122519 0.633634, 0.1122419 0.9866771, 0.3654387 0.3123293, 0.1450739 0.0904869, '
+    '0.3691042 0.1395276, 0.3031699 0.8246872, 0.1660463 0.8671747, 0.3569988 0.633634, '
+    '0.3569988 0.633634, 0.3694084 0.8976216, 0.3031699 0.8246872, 0.7113631 0.4050269, '
+    '0.9323464 0.1935238, 0.807003 0.4389925, 0.3654387 0.3123293, 0.3694084 0.4920835, '
+    '0.2444831 0.5753585, 0.1450739 0.0904869, 0.3654387 0.3123293, 0.0779419 0.2491205, '
+    '0.4751778 0.0, 0.6872136 0.0613657, 0.6173913 0.26805, 0.3569988 0.633634, '
+    '0.1660463 0.8671747, 0.1764471 0.656506, 0.2444831 0.5753585, 0.178291 0.633634, '
+    '0.1451926 0.5064259, 0.3654387 0.3123293, 0.2444831 0.5753585, 0.1451926 0.5064259, '
+    '0.1451926 0.5064259, 0.178291 0.633634, 0.022482 0.5410983, 0.1451926 0.5064259, '
+    '0.0779419 0.2491205, 0.3654387 0.3123293, 0.022482 0.5410983, 0.0 0.3611155, '
+    '0.1451926 0.5064259, 0.0779419 0.2491205, 0.1451926 0.5064259, 0.0 0.3611155, '
+    '0.6173913 0.26805, 0.4810471 0.1416896, 0.4751778 0.0, 0.6173913 0.26805, '
+    '0.3694084 0.2665703, 0.4810471 0.1416896, 0.6173913 0.26805, 0.5157984 0.4494928, '
+    '0.3694084 0.2665703, 0.6877791 0.4261287, 0.5157984 0.4494928, 0.6173913 0.26805, '
+    '0.6620587 0.5423295, 0.5953204 0.5691234, 0.5157984 0.4494928, 0.6620587 0.5423295, '
+    '0.5157984 0.4494928, 0.6877791 0.4261287'
+)
+ROCK_TEX_COORD_INDEX = (
+    '0 1 2 -1 3 4 5 -1 6 7 8 -1 9 10 11 -1 12 13 14 -1 15 16 17 -1 18 19 20 -1 '
+    '21 22 23 -1 24 25 26 -1 27 28 29 -1 30 31 32 -1 33 34 35 -1 36 37 38 -1 39 40 41 -1 '
+    '42 43 44 -1 45 46 47 -1 48 49 50 -1 51 52 53 -1 54 55 56 -1 57 58 59 -1 60 61 62 -1 '
+    '63 64 65 -1 66 67 68 -1 69 70 71 -1 72 73 74 -1 75 76 77 -1 78 79 80 -1 81 82 83 -1 '
+    '84 85 86 -1 87 88 89 -1 90 91 92 -1 93 94 95 -1 96 97 98 -1 99 100 101 -1 102 103 104 -1 '
+    '105 106 107 -1 108 109 110 -1 111 112 113 -1'
+)
+
+
+def make_boulder_vrml(name: str, x: float, y: float, z: float, scale: float = 11.5, mass: float = 450.0) -> str:
+    scaled_pts = ' '.join(f'{p[0]*scale:.4f} {p[1]*scale:.4f} {p[2]*scale:.4f}' for p in ROCK_BASE_VERTICES)
+    radius = 0.065 * scale  # ~0.75m
+    return f'''DEF {name.upper()} Solid {{
+  translation {x:.2f} {y:.2f} {z:.3f}
+  name "{name}"
+  locked FALSE
+  children [
+    Shape {{
+      appearance PBRAppearance {{
+        baseColor 0.72 0.65 0.55
+        baseColorMap ImageTexture {{
+          url [ "textures/rock.png", "../textures/rock.png" ]
+        }}
+        roughness 0.95
+        metalness 0.05
+      }}
+      geometry IndexedFaceSet {{
+        coord Coordinate {{
+          point [ {scaled_pts} ]
+        }}
+        coordIndex [ {ROCK_COORD_INDEX} ]
+        texCoord TextureCoordinate {{
+          point [ {ROCK_TEX_COORD} ]
+        }}
+        texCoordIndex [ {ROCK_TEX_COORD_INDEX} ]
+      }}
+    }}
+  ]
+  boundingObject Sphere {{
+    radius {radius:.2f}
+  }}
+  physics Physics {{
+    density -1
+    mass {mass}
+    damping Damping {{
+      linear 0.4
+      angular 0.4
+    }}
+  }}
+}}'''
 
 
 def _smoothstep(u):
@@ -130,8 +243,54 @@ def build(output):
         points = planner.plan(START, GOAL, timeout_s=90)
         if not points:
             raise RuntimeError(f'{name} found no route')
+        
+        offset = LANE_OFFSETS[name]
+        active_color = '1 0.45 0.12' if name == 'isotropic' else '0.1 0.85 1'
+        active_emissive = '0.9 0.4 0.1' if name == 'isotropic' else '0.2 0.85 1'
+        ghost_color = '0.4 0.25 0.15' if name == 'isotropic' else '0.08 0.32 0.40'
+        ghost_emissive = '0.15 0.08 0.04' if name == 'isotropic' else '0.04 0.16 0.20'
+        
+        segments_vrml = []
+        ghost_vrml = []
+        segment_stats = []
+        for a, b in zip(points, points[1:]):
+            n = max(1, math.ceil(math.dist(a, b) / .15))
+            verts = []
+            faces = []
+            vx, vy = b[0] - a[0], b[1] - a[1]
+            length = math.hypot(vx, vy)
+            nx, ny = -vy / length * .07, vx / length * .07
+            for i in range(n + 1):
+                x = a[0] + vx * i / n
+                y = a[1] + vy * i / n
+                for sign in [-1, 1]:
+                    px, py = x + sign * nx, y + sign * ny
+                    verts.append(f'{px + offset:.4f} {py:.4f} {float(elevation(px, py)) + .07:.4f}')
+                if i < n:
+                    faces.append(f'{2 * i} {2 * i + 2} {2 * i + 3} {2 * i + 1} -1')
+            
+            mid_x, mid_y = (a[0] + b[0]) / 2, (a[1] + b[1]) / 2
+            r, c = terrain.cell((mid_x, mid_y))
+            gx = float(terrain.gx_min[r, c])
+            gy = float(terrain.gy_min[r, c])
+            pitch = math.degrees(math.atan(gx * (vx/length) + gy * (vy/length)))
+            roll = math.degrees(math.atan(abs(-gx * (vy/length) + gy * (vx/length))))
+            slope = math.degrees(math.atan(math.hypot(gx, gy)))
+            segment_stats.append({'pitch': round(pitch, 1), 'roll': round(roll, 1), 'slope': round(slope, 1)})
+            
+            pts_str = ', '.join(verts)
+            faces_str = ' '.join(faces)
+            act_s = f'Shape {{ appearance PBRAppearance {{ baseColor {active_color} emissiveColor {active_emissive} roughness 0.2 metalness 0 }} geometry IndexedFaceSet {{ coord Coordinate {{ point [ {pts_str} ] }} coordIndex [ {faces_str} ] }} }}'
+            gho_s = f'Shape {{ appearance PBRAppearance {{ baseColor {ghost_color} emissiveColor {ghost_emissive} transparency 0.72 roughness 1 metalness 0 }} geometry IndexedFaceSet {{ coord Coordinate {{ point [ {pts_str} ] }} coordIndex [ {faces_str} ] }} }}'
+            segments_vrml.append(act_s)
+            ghost_vrml.append(gho_s)
+            
         results[name] = {'points': points, 'planning_seconds': time.perf_counter() - t,
-                         'expanded_nodes': planner.expanded, **evaluate_route(terrain, points)}
+                         'expanded_nodes': planner.expanded,
+                         'segments_vrml': segments_vrml,
+                         'ghost_vrml': ghost_vrml,
+                         'segment_stats': segment_stats,
+                         **evaluate_route(terrain, points)}
     spec = {'course': 'loose-scree 21-degree side-slope above a chasm, with a level bypass',
             'start': START, 'goal': GOAL, 'resolution_m': RESOLUTION, 'robot_radius_m': RADIUS,
             'slope_deg': SLOPE_DEG, 'scree_friction': SCREE_FRICTION,
@@ -139,6 +298,7 @@ def build(output):
             'chasm_y': CHASM_Y, 'chasm_drop_m': CHASM_DROP,
             'planner_roll_limit_deg': LIMITS.roll_deg, 'scalar_cliff_limit_deg': LIMITS.cliff_deg,
             'baseline_scalar_slope_weight': 0.2, 'fall_height_m': 2.5,
+            'rock': {'x': ROCK_POS[0], 'y': ROCK_POS[1], 'radius': ROCK_RADIUS},
             'controller': 'identical waypoint follower in rover_trial.py',
             'source': 'procedural mechanism test; no real-Utah terrain claim', 'results': results}
     (output / 'plans.json').write_text(json.dumps(spec, indent=2) + '\n')
@@ -172,23 +332,14 @@ DirectionalLight {{ direction -0.3 0.4 -1 intensity 1.2 ambientIntensity 0.65 }}
         init_yaw = math.atan2(p1[1] - p0[1], p1[0] - p0[0])
         pieces.append(f'''DEF {mode.upper()} rover_terrain {{ translation {START[0] + offset} {START[1]} {ground_z + .45}
           rotation 0 0 1 {init_yaw:.5f} name "{mode}" controller "<extern>" supervisor TRUE }}''')
-        for a, b in zip(results[mode]['points'], results[mode]['points'][1:]):
-            n = max(1, math.ceil(math.dist(a, b) / .15))
-            verts = []
-            faces = []
-            vx, vy = b[0] - a[0], b[1] - a[1]
-            length = math.hypot(vx, vy)
-            nx, ny = -vy / length * .07, vx / length * .07
-            for i in range(n + 1):
-                x = a[0] + vx * i / n
-                y = a[1] + vy * i / n
-                for sign in [-1, 1]:
-                    px, py = x + sign * nx, y + sign * ny
-                    verts.append(f'{px + offset:.4f} {py:.4f} {float(elevation(px, py)) + .07:.4f}')
-                if i < n:
-                    faces.append(f'{2 * i} {2 * i + 2} {2 * i + 3} {2 * i + 1} -1')
-            pieces.append(f'''Shape {{ appearance PBRAppearance {{ baseColor {color} emissiveColor {color} roughness 1 metalness 0 }}
-              geometry IndexedFaceSet {{ coord Coordinate {{ point [ {', '.join(verts)} ] }} coordIndex [ {' '.join(faces)} ] }} }}''')
+        # Ghost ribbon for pre-computed planned path (stays visible as reference corridor)
+        for gho_shape in results[mode]['ghost_vrml']:
+            pieces.append(gho_shape)
+        # Group for dynamic growing path animation
+        pieces.append(f'DEF {mode.upper()}_ACTIVE_TRAIL Group {{ children [ ] }}')
+        # Boulder obstacle (authentic 3D textured rock mesh with real 450kg dynamic ODE gravity physics)
+        rock_z = float(elevation(ROCK_POS[0], ROCK_POS[1])) + 0.65
+        pieces.append(make_boulder_vrml(f"{mode}_rock", offset + ROCK_POS[0], ROCK_POS[1], rock_z, scale=11.5, mass=450.0))
         # Red tape along the chasm lip.
         for x0 in np.arange(-10, 10.1, 1.0):
             pieces.append(f'Transform {{ translation {offset + x0:.2f} {CHASM_Y + 0.25} {float(elevation(x0, CHASM_Y + 0.25)) + .05:.4f} '
