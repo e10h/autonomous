@@ -15,3 +15,7 @@ __pycache__/
 /data/
 /terrain_artifacts/
 /routes/
+
+# Output runs and generated recordings
+/outputs/
+

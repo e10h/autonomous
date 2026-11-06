@@ -7,7 +7,7 @@
 PROTO rover_terrain [
   field  SFVec3f     translation     0 1 0
   field  SFRotation  rotation        0 0 1 0
-  field  SFString    name            "rover2"  # Is `Robot.name`.
+  field  SFString    name            "rover_terrain"  # Is `Robot.name`.
   field  SFString    controller      "void"    # Is `Robot.controller`.
   field  MFString    controllerArgs  []        # Is `Robot.controllerArgs`.
   field  SFString    customData      ""        # Is `Robot.customData`.
@@ -16,11 +16,13 @@ PROTO rover_terrain [
   field  SFBool      selfCollision   FALSE     # Is `Robot.selfCollision`.
   field  SFString    depthCameraName         "oakd_rgb"
   field  SFString    depthRangeFinderName    "oakd_depth"
-  field  SFVec3f     depthCameraTranslation  -0.96 0.27 0.3     # adjust to match your real mount
-  field  SFRotation  depthCameraRotation     0 0 1 1.57       # adjust orientation if needed
+  field  SFVec3f     depthCameraTranslation  0.3 0 0.48
+  # R2025a cameras look along +X, with +Z up and image-right along -Y.
+  field  SFRotation  depthCameraRotation     0 0 1 0
 ]
 {
   Robot {
+    name IS name
     translation IS translation
     rotation IS rotation
     controller IS controller
@@ -226,17 +228,19 @@ PROTO rover_terrain [
         translation IS depthCameraTranslation
         rotation IS depthCameraRotation
         children [
+          # RGB camera (if you want the color image too)
           Camera {
-            translation -0.27 -1.31 -0.27
-            rotation 0 0 1 -1.57
             name IS depthCameraName
             width 640
             height 480
-            fieldOfView 0.785
+            fieldOfView 0.785           # ~75°; tweak if you want
+            # near / far can be left at default or set explicitly:
+            # near 0.01
+            # far 20
           }
+
+          # Depth map, Webots-style
           RangeFinder {
-            translation -0.27 -1.31 -0.27
-            rotation 0 0 1 -1.57
             name IS depthRangeFinderName
             width 640
             height 480
@@ -251,6 +255,7 @@ PROTO rover_terrain [
           axis 0.000241 -0.999986 0.005356
           anchor 0.052519 0.246143 0.012927
           springConstant 100
+          dampingConstant 20
         }
         device [
           PositionSensor {
@@ -510,6 +515,7 @@ PROTO rover_terrain [
                 axis 0.000000 0.000000 1.000000
                 anchor 0.250216 0.144462 -0.038100
                 springConstant 50
+                dampingConstant 15
               }
               device [
                 PositionSensor {
@@ -716,8 +722,8 @@ PROTO rover_terrain [
                     device [
                       RotationalMotor {
                         name "left_middle_wheel"
-                        maxVelocity 50.0
-                        maxTorque 50.0
+                        maxVelocity 10.0
+                        maxTorque 25.0
                       }
                       PositionSensor {
                         name "left_middle_wheel_sensor"
@@ -748,7 +754,6 @@ PROTO rover_terrain [
                           rotation -0.866025 -0.500001 0.000001 3.141590
                           children [
                             Shape {
-                              castShadows FALSE
                               appearance DEF part_1_material PBRAppearance {
                                 baseColor 0.600000 0.600000 0.600000
                                 roughness 1.000000
@@ -792,7 +797,38 @@ PROTO rover_terrain [
                         }
                       ]
                       name "wheel_assembly"
-                      boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                      boundingObject Group {
+                        children [
+                          Pose {
+                            translation 0.000000 0.000000 -0.019385
+                            rotation 0.577350 0.577350 -0.577352 2.094399
+                            children [
+                              USE am_0096a_500_hex_hub_r2_step_1
+                            ]
+                          }
+                          Pose {
+                            translation -0.052519 -0.090966 -0.036736
+                            rotation -0.866025 -0.500001 0.000001 3.141590
+                            children [
+                              USE part_1
+                            ]
+                          }
+                          Pose {
+                            translation 0.000000 0.000000 -0.098171
+                            rotation 0.000000 0.000000 -1.000000 0.523599
+                            children [
+                              USE part_1__2
+                            ]
+                          }
+                          Pose {
+                            translation 0.000000 0.000000 0.023749
+                            rotation 0.965926 -0.258819 -0.000000 3.141590
+                            children [
+                              USE part_1__2
+                            ]
+                          }
+                        ]
+                      }
                       physics Physics {
                         density -1
                         mass 1.054130
@@ -812,8 +848,8 @@ PROTO rover_terrain [
                     device [
                       RotationalMotor {
                         name "left_back_wheel"
-                        maxVelocity 50.0
-                        maxTorque 50.0
+                        maxVelocity 10.0
+                        maxTorque 25.0
                       }
                       PositionSensor {
                         name "left_back_wheel_sensor"
@@ -842,7 +878,6 @@ PROTO rover_terrain [
                           rotation -0.866025 -0.500001 0.000001 3.141590
                           children [
                             Shape {
-                              castShadows FALSE
                               appearance DEF part_1_4_material PBRAppearance {
                                 baseColor 0.600000 0.600000 0.600000
                                 roughness 1.000000
@@ -882,7 +917,38 @@ PROTO rover_terrain [
                         }
                       ]
                       name "wheel_assembly_2"
-                      boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                      boundingObject Group {
+                        children [
+                          Pose {
+                            translation -0.000000 -0.000000 -0.019385
+                            rotation 0.577350 0.577350 -0.577352 2.094399
+                            children [
+                              USE am_0096a_500_hex_hub_r2_step_1
+                            ]
+                          }
+                          Pose {
+                            translation -0.052519 -0.090966 -0.036736
+                            rotation -0.866025 -0.500001 0.000001 3.141590
+                            children [
+                              USE part_1
+                            ]
+                          }
+                          Pose {
+                            translation -0.000000 0.000000 -0.098171
+                            rotation 0.000000 0.000000 -1.000000 0.523599
+                            children [
+                              USE part_1__2
+                            ]
+                          }
+                          Pose {
+                            translation -0.000000 0.000000 0.023749
+                            rotation -0.965926 0.258819 -0.000000 3.141590
+                            children [
+                              USE part_1__2
+                            ]
+                          }
+                        ]
+                      }
                       physics Physics {
                         density -1
                         mass 1.054130
@@ -896,7 +962,101 @@ PROTO rover_terrain [
                   }
                 ]
                 name "lower_legs"
-                boundingObject Pose { translation 0.000001 0.081847 -0.045243 children [ Box { size 0.611499 0.222351 0.198436 } ] }
+                boundingObject Group {
+                  children [
+                    Pose {
+                      translation -0.250216 -0.144462 0.007938
+                      rotation 1.000000 0.000000 -0.000000 1.570800
+                      children [
+                        USE tube_2_x1_x11_327
+                      ]
+                    }
+                    Pose {
+                      translation -0.250216 -0.144462 0.007938
+                      rotation 1.000000 0.000000 -0.000000 1.570800
+                      children [
+                        USE tube_2_x1_x11_327__2
+                      ]
+                    }
+                    Pose {
+                      translation -0.209481 -0.183269 -0.030162
+                      rotation 0.377963 -0.654655 -0.654653 2.418863
+                      children [
+                        USE motor_bracket
+                      ]
+                    }
+                    Pose {
+                      translation 0.236468 -0.136525 -0.030162
+                      rotation 1.000000 0.000000 0.000000 1.570800
+                      children [
+                        USE chassis_motor
+                      ]
+                    }
+                    Pose {
+                      translation 0.236468 -0.136525 -0.030162
+                      rotation 1.000000 0.000000 0.000000 1.570800
+                      children [
+                        USE motor_bracket
+                      ]
+                    }
+                    Pose {
+                      translation -0.236468 -0.136525 -0.030162
+                      rotation 0.377963 -0.654655 -0.654653 2.418863
+                      children [
+                        USE chassis_motor
+                      ]
+                    }
+                    Pose {
+                      translation 0.000000 0.000000 -0.007620
+                      rotation -1.000000 0.000000 -0.000000 1.570800
+                      children [
+                        USE p1_125x0_5_bearing__2
+                      ]
+                    }
+                    Pose {
+                      translation -0.250216 -0.144462 0.007938
+                      rotation 1.000000 0.000000 -0.000000 1.570800
+                      children [
+                        USE pd_000002
+                      ]
+                    }
+                    Pose {
+                      translation 0.000000 0.000000 -0.027305
+                      rotation 0.577350 0.577352 0.577350 2.094399
+                      children [
+                        USE p1_2_3_5screw
+                      ]
+                    }
+                    Pose {
+                      translation 0.263456 -0.089781 -0.030162
+                      rotation 1.000000 0.000000 0.000000 1.570800
+                      children [
+                        USE motor_bracket
+                      ]
+                    }
+                    Pose {
+                      translation -0.236468 -0.136525 -0.030162
+                      rotation 0.377963 -0.654655 -0.654653 2.418863
+                      children [
+                        USE motor_bracket
+                      ]
+                    }
+                    Pose {
+                      translation -0.250216 -0.144462 0.036513
+                      rotation 1.000000 0.000000 -0.000000 1.570800
+                      children [
+                        USE pd_000002
+                      ]
+                    }
+                    Pose {
+                      translation 0.000000 0.000000 -0.027305
+                      rotation 1.000000 0.000000 -0.000000 1.570800
+                      children [
+                        USE p1_125x0_5_bearing__2
+                      ]
+                    }
+                  ]
+                }
                 physics Physics {
                   density -1
                   mass 2.086390
@@ -916,8 +1076,8 @@ PROTO rover_terrain [
               device [
                 RotationalMotor {
                   name "left_front_wheel"
-                  maxVelocity 50.0
-                  maxTorque 50.0
+                  maxVelocity 10.0
+                  maxTorque 25.0
                 }
                 PositionSensor {
                   name "left_front_wheel_sensor"
@@ -946,7 +1106,6 @@ PROTO rover_terrain [
                     rotation -0.866025 -0.500001 0.000001 3.141590
                     children [
                       Shape {
-                        castShadows FALSE
                         appearance DEF part_1_7_material PBRAppearance {
                           baseColor 0.600000 0.600000 0.600000
                           roughness 1.000000
@@ -986,7 +1145,38 @@ PROTO rover_terrain [
                   }
                 ]
                 name "wheel_assembly_3"
-                boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                boundingObject Group {
+                  children [
+                    Pose {
+                      translation 0.000000 0.000000 -0.019385
+                      rotation 0.577350 0.577350 -0.577352 2.094399
+                      children [
+                        USE am_0096a_500_hex_hub_r2_step_1
+                      ]
+                    }
+                    Pose {
+                      translation -0.052519 -0.090966 -0.036736
+                      rotation -0.866025 -0.500001 0.000001 3.141590
+                      children [
+                        USE part_1
+                      ]
+                    }
+                    Pose {
+                      translation 0.000000 0.000000 -0.098171
+                      rotation 0.000000 0.000000 -1.000000 0.523599
+                      children [
+                        USE part_1__2
+                      ]
+                    }
+                    Pose {
+                      translation -0.000000 0.000000 0.023749
+                      rotation 0.965926 -0.258819 -0.000000 3.141590
+                      children [
+                        USE part_1__2
+                      ]
+                    }
+                  ]
+                }
                 physics Physics {
                   density -1
                   mass 1.054130
@@ -1000,7 +1190,122 @@ PROTO rover_terrain [
             }
           ]
           name "upper_legs"
-          boundingObject Pose { translation -0.124527 0.117846 -0.045243 children [ Box { size 0.835379 0.423402 0.198436 } ] }
+          boundingObject Group {
+            children [
+              Pose {
+                translation 0.000000 0.000000 -0.030162
+                rotation 1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE motor_bracket
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.007620
+                rotation -1.000000 0.000000 -0.000000 1.570800
+                children [
+                  USE p1_125x0_5_bearing__2
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.030162
+                rotation 1.000000 0.000000 -0.000000 1.570800
+                children [
+                  USE pd_000001
+                ]
+              }
+              Pose {
+                translation -0.000000 0.000000 -0.058737
+                rotation 1.000000 0.000000 -0.000000 1.570800
+                children [
+                  USE pd_000003
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.030162
+                rotation 1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE pd_000003
+                ]
+              }
+              Pose {
+                translation 0.026988 0.046744 -0.030162
+                rotation 1.000000 0.000000 0.000000 1.570800
+                children [
+                  USE motor_bracket
+                ]
+              }
+              Pose {
+                translation 0.250216 0.144462 -0.027305
+                rotation 1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE p1_125x0_5_bearing__2
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.030162
+                rotation 1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE tube_2_x1_x21_952
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.030162
+                rotation 1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE tube_2_x1_x13_202
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.001587
+                rotation 1.000000 0.000000 -0.000000 1.570800
+                children [
+                  USE pd_000001
+                ]
+              }
+              Pose {
+                translation -0.012700 0.000000 -0.017462
+                rotation 0.577350 0.577350 -0.577352 2.094399
+                children [
+                  USE balljointa
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.030162
+                rotation 1.000000 0.000000 0.000000 1.570800
+                children [
+                  USE chassis_motor
+                ]
+              }
+              Pose {
+                translation -0.000000 0.000000 -0.030162
+                rotation 1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE diff_block
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.027305
+                rotation 0.577350 0.577352 0.577350 2.094399
+                children [
+                  USE p1_2_3_5screw
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.027305
+                rotation 1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE p1_125x0_5_bearing__2
+                ]
+              }
+              Pose {
+                translation 0.250216 0.144462 -0.007620
+                rotation -1.000000 0.000000 0.000000 1.570800
+                children [
+                  USE p1_125x0_5_bearing__2
+                ]
+              }
+            ]
+          }
           physics Physics {
             density -1
             mass 2.081730
@@ -1017,6 +1322,7 @@ PROTO rover_terrain [
           axis -0.000241 0.999986 -0.005364
           anchor 0.052635 -0.239619 0.016797
           springConstant 100
+          dampingConstant 20
         }
         device [
           PositionSensor {
@@ -1276,6 +1582,7 @@ PROTO rover_terrain [
                 axis 0.000000 -0.000000 1.000000
                 anchor 0.250216 -0.144462 -0.038100
                 springConstant 50
+                dampingConstant 15
               }
               device [
                 PositionSensor {
@@ -1482,8 +1789,8 @@ PROTO rover_terrain [
                     device [
                       RotationalMotor {
                         name "right_back_wheel"
-                        maxVelocity 50.0
-                        maxTorque 50.0
+                        maxVelocity 10.0
+                        maxTorque 25.0
                       }
                       PositionSensor {
                         name "right_back_wheel_sensor"
@@ -1514,7 +1821,6 @@ PROTO rover_terrain [
                           rotation 0.866025 0.500001 0.000001 3.141590
                           children [
                             Shape {
-                              castShadows FALSE
                               appearance DEF part_1_10_material PBRAppearance {
                                 baseColor 0.600000 0.600000 0.600000
                                 roughness 1.000000
@@ -1558,7 +1864,38 @@ PROTO rover_terrain [
                         }
                       ]
                       name "wheel_assembly_4"
-                      boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                      boundingObject Group {
+                        children [
+                          Pose {
+                            translation 0.000000 0.000000 -0.019385
+                            rotation 0.577350 0.577350 -0.577352 2.094399
+                            children [
+                              USE am_0096a_500_hex_hub_r2_step_1__2
+                            ]
+                          }
+                          Pose {
+                            translation -0.052519 -0.090966 -0.036736
+                            rotation 0.866025 0.500001 0.000001 3.141590
+                            children [
+                              USE part_1__3
+                            ]
+                          }
+                          Pose {
+                            translation 0.000000 0.000000 -0.098171
+                            rotation 0.000000 -0.000000 -1.000000 0.523599
+                            children [
+                              USE part_1__4
+                            ]
+                          }
+                          Pose {
+                            translation 0.000000 -0.000000 0.023749
+                            rotation -0.965926 0.258819 -0.000000 3.141590
+                            children [
+                              USE part_1__4
+                            ]
+                          }
+                        ]
+                      }
                       physics Physics {
                         density -1
                         mass 1.054130
@@ -1578,8 +1915,8 @@ PROTO rover_terrain [
                     device [
                       RotationalMotor {
                         name "right_middle_wheel"
-                        maxVelocity 50.0
-                        maxTorque 50.0
+                        maxVelocity 10.0
+                        maxTorque 25.0
                       }
                       PositionSensor {
                         name "right_middle_wheel_sensor"
@@ -1608,7 +1945,6 @@ PROTO rover_terrain [
                           rotation 0.866025 0.500001 0.000001 3.141590
                           children [
                             Shape {
-                              castShadows FALSE
                               appearance DEF part_1_13_material PBRAppearance {
                                 baseColor 0.600000 0.600000 0.600000
                                 roughness 1.000000
@@ -1648,7 +1984,38 @@ PROTO rover_terrain [
                         }
                       ]
                       name "wheel_assembly_5"
-                      boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                      boundingObject Group {
+                        children [
+                          Pose {
+                            translation -0.000000 0.000000 -0.019385
+                            rotation 0.577350 0.577350 -0.577352 2.094399
+                            children [
+                              USE am_0096a_500_hex_hub_r2_step_1__2
+                            ]
+                          }
+                          Pose {
+                            translation -0.052519 -0.090966 -0.036736
+                            rotation 0.866025 0.500001 0.000001 3.141590
+                            children [
+                              USE part_1__3
+                            ]
+                          }
+                          Pose {
+                            translation -0.000000 0.000000 -0.098171
+                            rotation 0.000000 -0.000000 -1.000000 0.523599
+                            children [
+                              USE part_1__4
+                            ]
+                          }
+                          Pose {
+                            translation -0.000000 0.000000 0.023749
+                            rotation -0.965926 0.258819 -0.000000 3.141590
+                            children [
+                              USE part_1__4
+                            ]
+                          }
+                        ]
+                      }
                       physics Physics {
                         density -1
                         mass 1.054130
@@ -1662,7 +2029,101 @@ PROTO rover_terrain [
                   }
                 ]
                 name "lower_legs_2"
-                boundingObject Pose { translation 0.000001 0.081847 -0.045243 children [ Box { size 0.611499 0.222351 0.198436 } ] }
+                boundingObject Group {
+                  children [
+                    Pose {
+                      translation -0.250216 -0.144462 0.007938
+                      rotation 1.000000 -0.000000 0.000000 1.570800
+                      children [
+                        USE pd_000002__2
+                      ]
+                    }
+                    Pose {
+                      translation 0.236468 -0.136525 -0.030162
+                      rotation 1.000000 -0.000000 0.000000 1.570800
+                      children [
+                        USE motor_bracket__2
+                      ]
+                    }
+                    Pose {
+                      translation 0.263456 -0.089781 -0.030162
+                      rotation 1.000000 0.000000 0.000000 1.570800
+                      children [
+                        USE motor_bracket__2
+                      ]
+                    }
+                    Pose {
+                      translation 0.000000 -0.000000 -0.027305
+                      rotation 0.577350 0.577352 0.577350 2.094399
+                      children [
+                        USE p1_2_3_5screw__2
+                      ]
+                    }
+                    Pose {
+                      translation -0.209481 -0.183269 -0.030162
+                      rotation 0.377963 -0.654655 -0.654653 2.418863
+                      children [
+                        USE motor_bracket__2
+                      ]
+                    }
+                    Pose {
+                      translation -0.236468 -0.136525 -0.030162
+                      rotation 0.377963 -0.654655 -0.654653 2.418863
+                      children [
+                        USE chassis_motor__2
+                      ]
+                    }
+                    Pose {
+                      translation 0.000000 -0.000000 -0.007620
+                      rotation -1.000000 0.000000 0.000000 1.570800
+                      children [
+                        USE p1_125x0_5_bearing__3
+                      ]
+                    }
+                    Pose {
+                      translation -0.250216 -0.144462 0.007938
+                      rotation 1.000000 -0.000000 0.000000 1.570800
+                      children [
+                        USE tube_2_x1_x11_327__3
+                      ]
+                    }
+                    Pose {
+                      translation 0.000000 -0.000000 -0.027305
+                      rotation 1.000000 -0.000000 0.000000 1.570800
+                      children [
+                        USE p1_125x0_5_bearing__3
+                      ]
+                    }
+                    Pose {
+                      translation 0.236468 -0.136525 -0.030162
+                      rotation 1.000000 0.000000 0.000000 1.570800
+                      children [
+                        USE chassis_motor__2
+                      ]
+                    }
+                    Pose {
+                      translation -0.236468 -0.136525 -0.030162
+                      rotation 0.377963 -0.654655 -0.654653 2.418863
+                      children [
+                        USE motor_bracket__2
+                      ]
+                    }
+                    Pose {
+                      translation -0.250216 -0.144462 0.036513
+                      rotation 1.000000 -0.000000 0.000000 1.570800
+                      children [
+                        USE pd_000002__2
+                      ]
+                    }
+                    Pose {
+                      translation -0.250216 -0.144462 0.007938
+                      rotation 1.000000 -0.000000 0.000000 1.570800
+                      children [
+                        USE tube_2_x1_x11_327__4
+                      ]
+                    }
+                  ]
+                }
                 physics Physics {
                   density -1
                   mass 2.086390
@@ -1682,8 +2143,8 @@ PROTO rover_terrain [
               device [
                 RotationalMotor {
                   name "right_front_wheel"
-                  maxVelocity 50.0
-                  maxTorque 50.0
+                  maxVelocity 10.0
+                  maxTorque 25.0
                 }
                 PositionSensor {
                   name "right_front_wheel_sensor"
@@ -1712,7 +2173,6 @@ PROTO rover_terrain [
                     rotation -0.866025 -0.500001 0.000001 3.141590
                     children [
                       Shape {
-                        castShadows FALSE
                         appearance DEF part_1_16_material PBRAppearance {
                           baseColor 0.600000 0.600000 0.600000
                           roughness 1.000000
@@ -1752,7 +2212,38 @@ PROTO rover_terrain [
                   }
                 ]
                 name "wheel_assembly_6"
-                boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                boundingObject Group {
+                  children [
+                    Pose {
+                      translation -0.000000 0.000000 -0.019385
+                      rotation 0.577350 0.577350 -0.577352 2.094399
+                      children [
+                        USE am_0096a_500_hex_hub_r2_step_1__2
+                      ]
+                    }
+                    Pose {
+                      translation -0.052519 -0.090966 -0.036736
+                      rotation -0.866025 -0.500001 0.000001 3.141590
+                      children [
+                        USE part_1__3
+                      ]
+                    }
+                    Pose {
+                      translation 0.000000 0.000000 -0.098171
+                      rotation 0.000000 0.000000 -1.000000 0.523599
+                      children [
+                        USE part_1__4
+                      ]
+                    }
+                    Pose {
+                      translation 0.000000 0.000000 0.023749
+                      rotation -0.965926 0.258819 -0.000000 3.141590
+                      children [
+                        USE part_1__4
+                      ]
+                    }
+                  ]
+                }
                 physics Physics {
                   density -1
                   mass 1.054130
@@ -1766,7 +2257,122 @@ PROTO rover_terrain [
             }
           ]
           name "upper_legs_2"
-          boundingObject Pose { translation -0.124527 -0.117847 -0.045243 children [ Box { size 0.835379 0.423403 0.198436 } ] }
+          boundingObject Group {
+            children [
+              Pose {
+                translation 0.250216 -0.144462 -0.027305
+                rotation 1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE p1_125x0_5_bearing__3
+                ]
+              }
+              Pose {
+                translation -0.000000 0.000000 0.023813
+                rotation -1.000000 0.000000 -0.000000 1.570800
+                children [
+                  USE pd_000003__2
+                ]
+              }
+              Pose {
+                translation -0.000000 0.000000 -0.027305
+                rotation 0.577350 -0.577352 -0.577350 2.094399
+                children [
+                  USE p1_2_3_5screw__2
+                ]
+              }
+              Pose {
+                translation -0.000000 0.000000 -0.004763
+                rotation -1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE diff_block__2
+                ]
+              }
+              Pose {
+                translation -0.026988 0.046744 -0.030162
+                rotation 0.774596 0.447215 0.447213 1.823481
+                children [
+                  USE motor_bracket__2
+                ]
+              }
+              Pose {
+                translation 0.000000 -0.000000 -0.007620
+                rotation -1.000000 0.000000 0.000000 1.570800
+                children [
+                  USE p1_125x0_5_bearing__3
+                ]
+              }
+              Pose {
+                translation -0.012700 0.000000 -0.017462
+                rotation -0.577350 -0.577350 -0.577352 2.094399
+                children [
+                  USE balljointa__2
+                ]
+              }
+              Pose {
+                translation -0.000000 0.000000 -0.004763
+                rotation -1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE tube_2_x1_x21_952__2
+                ]
+              }
+              Pose {
+                translation -0.000000 0.000000 -0.004763
+                rotation -1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE pd_000001__2
+                ]
+              }
+              Pose {
+                translation -0.000000 0.000000 -0.027305
+                rotation 1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE p1_125x0_5_bearing__3
+                ]
+              }
+              Pose {
+                translation -0.000000 0.000000 -0.033337
+                rotation -1.000000 0.000000 -0.000000 1.570800
+                children [
+                  USE pd_000001__2
+                ]
+              }
+              Pose {
+                translation 0.000000 -0.000000 -0.030162
+                rotation 0.774596 0.447215 0.447213 1.823481
+                children [
+                  USE motor_bracket__2
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.004763
+                rotation -1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE tube_2_x1_x13_202__2
+                ]
+              }
+              Pose {
+                translation 0.250216 -0.144462 -0.007620
+                rotation -1.000000 -0.000000 0.000000 1.570800
+                children [
+                  USE p1_125x0_5_bearing__3
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.030162
+                rotation 0.774596 0.447215 0.447213 1.823481
+                children [
+                  USE chassis_motor__2
+                ]
+              }
+              Pose {
+                translation 0.000000 0.000000 -0.004763
+                rotation -1.000000 0.000000 -0.000000 1.570800
+                children [
+                  USE pd_000003__2
+                ]
+              }
+            ]
+          }
           physics Physics {
             density -1
             mass 2.081730
@@ -1778,7 +2384,7 @@ PROTO rover_terrain [
           }
         }
       }
-      Pose {
+      Solid {
         translation 0 0 0.2   # lift it slightly above base
         rotation 0 1 0 3.14159
         children [
@@ -1804,11 +2410,106 @@ PROTO rover_terrain [
             name "gyro"
           }
         ]
-        # Fixed sensor mount uses the Robot physics through Pose.
+        # No physics needed
+        physics Physics { density 1000 mass 1 }
       }
     ]
     name IS name
-    boundingObject Pose { translation -0.036323 0.003262 0.014992 children [ Box { size 0.762257 0.479582 0.105129 } ] }
+    boundingObject Group {
+      children [
+        Pose {
+          translation -0.417286 -0.463829 -0.031465
+          rotation 1.000000 0.000116 -0.000749 3.136230
+          children [
+            USE part_3
+          ]
+        }
+        Pose {
+          translation -0.743598 0.205923 -0.215865
+          rotation 0.999999 0.000867 -0.000634 1.565440
+          children [
+            USE cdp_seating_tubing_bracket
+          ]
+        }
+        Pose {
+          translation -0.972173 0.205440 -0.215343
+          rotation 0.999999 0.000867 -0.000634 1.565440
+          children [
+            USE arm_seating_tubing_bracket
+          ]
+        }
+        Pose {
+          translation 0.656545 -0.201918 -0.215775
+          rotation -0.000446 -0.709001 -0.705208 3.140366
+          children [
+            USE cdp_seating_tubing_bracket
+          ]
+        }
+        Pose {
+          translation -0.417396 -0.009906 -0.035164
+          rotation 1.000000 0.000116 -0.000749 3.136230
+          children [
+            USE part_3
+          ]
+        }
+        Pose {
+          translation -0.417289 -0.451040 -0.031533
+          rotation 1.000000 0.000116 -0.000749 3.136230
+          children [
+            USE part_3
+          ]
+        }
+        Pose {
+          translation 0.052630 -0.218575 0.016685
+          rotation 1.000000 0.000116 -0.000749 3.136230
+          children [
+            USE p1_125x0_5_bearing
+          ]
+        }
+        Pose {
+          translation -0.743574 0.205492 -0.215685
+          rotation 0.999999 0.000867 -0.000634 1.565440
+          children [
+            USE arm_seating_tubing_bracket
+          ]
+        }
+        Pose {
+          translation 0.052521 0.235348 0.012985
+          rotation 1.000000 0.000116 -0.000749 3.136230
+          children [
+            USE p1_125x0_5_bearing
+          ]
+        }
+        Pose {
+          translation 0.052633 -0.228824 0.016740
+          rotation -0.962287 0.268825 0.041679 0.005571
+          children [
+            USE p1_125x0_5_bearing
+          ]
+        }
+        Pose {
+          translation 0.052524 0.225099 0.013040
+          rotation -0.962287 0.268825 0.041679 0.005571
+          children [
+            USE p1_125x0_5_bearing
+          ]
+        }
+        Pose {
+          translation -0.417247 0.003427 0.066365
+          rotation 0.999999 0.000867 -0.000634 1.565440
+          children [
+            USE back_and_sides
+          ]
+        }
+        Pose {
+          translation -0.417359 0.470139 0.062597
+          rotation -0.962287 0.268825 0.041679 0.005571
+          children [
+            USE part_3
+          ]
+        }
+      ]
+    }
     physics Physics {
       density -1
       mass 3.879960

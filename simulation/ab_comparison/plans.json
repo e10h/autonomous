@@ -1,0 +1,122 @@
+{
+  "course": "loose-scree 21-degree side-slope above a chasm, with a level bypass",
+  "start": [
+    -14.0,
+    0.0
+  ],
+  "goal": [
+    14.0,
+    0.0
+  ],
+  "resolution_m": 0.2,
+  "robot_radius_m": 0.8,
+  "slope_deg": 21.0,
+  "scree_friction": 0.3,
+  "slip_angle_deg": 16.69924423399362,
+  "chasm_y": -3.0,
+  "chasm_drop_m": 7.0,
+  "planner_roll_limit_deg": 12,
+  "scalar_cliff_limit_deg": 22,
+  "baseline_scalar_slope_weight": 0.2,
+  "fall_height_m": 2.5,
+  "controller": "identical waypoint follower in rover_trial.py",
+  "source": "procedural mechanism test; no real-Utah terrain claim",
+  "results": {
+    "isotropic": {
+      "points": [
+        [
+          -14.0,
+          0.0
+        ],
+        [
+          -7.0,
+          3.200000000000001
+        ],
+        [
+          -6.199999999999999,
+          3.4000000000000004
+        ],
+        [
+          -4.199999999999999,
+          3.4000000000000004
+        ],
+        [
+          6.600000000000001,
+          3.4000000000000004
+        ],
+        [
+          14.0,
+          0.0
+        ]
+      ],
+      "planning_seconds": 0.5011464999988675,
+      "expanded_nodes": 4217,
+      "length_m": 29.465082915682007,
+      "max_centerline_pitch_deg": 14.376106357375214,
+      "max_centerline_roll_deg": 20.993347725838618,
+      "distance_over_slip_angle_m": 11.296859875256274
+    },
+    "anisotropic": {
+      "points": [
+        [
+          -14.0,
+          0.0
+        ],
+        [
+          -11.2,
+          6.199999999999999
+        ],
+        [
+          -10.6,
+          7.0
+        ],
+        [
+          -9.6,
+          8.0
+        ],
+        [
+          -7.199999999999999,
+          8.8
+        ],
+        [
+          -5.199999999999999,
+          9.200000000000003
+        ],
+        [
+          -3.1999999999999993,
+          9.400000000000002
+        ],
+        [
+          -0.1999999999999993,
+          9.600000000000001
+        ],
+        [
+          7.0,
+          8.8
+        ],
+        [
+          8.600000000000001,
+          8.200000000000003
+        ],
+        [
+          9.8,
+          7.600000000000001
+        ],
+        [
+          10.8,
+          6.600000000000001
+        ],
+        [
+          14.0,
+          0.0
+        ]
+      ],
+      "planning_seconds": 0.9742400829854887,
+      "expanded_nodes": 4849,
+      "length_m": 37.847029973324965,
+      "max_centerline_pitch_deg": 0.16478335953742365,
+      "max_centerline_roll_deg": 0.4647480681111561,
+      "distance_over_slip_angle_m": 0
+    }
+  }
+}
