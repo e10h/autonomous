@@ -18,4 +18,6 @@ __pycache__/
 
 # Output runs and generated recordings
 /outputs/
+*.wbproj
+.DS_Store
 
