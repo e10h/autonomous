@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-05",
+  "webots": "R2025a",
+  "ros": "Jazzy",
+  "requested_goal_m": {
+    "east": -3.6,
+    "north": 9.0
+  },
+  "converted_odom_goal_m": [
+    -3.67,
+    8.96
+  ],
+  "goal_confirmed": true,
+  "reported_arrival_error_m": 0.6,
+  "anisotropic_planner_tests_passed": 5,
+  "physics_or_marker_errors_observed_in_webots_console": false,
+  "contacts_validated": false,
+  "launcher_args": [
+    "--no-webots",
+    "--restart-container"
+  ]
+}

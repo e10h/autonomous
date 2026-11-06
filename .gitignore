@@ -6,3 +6,7 @@ __pycache__/
 *.tiff
 *.npy
 *.gif
+
+# Reproducible demo inputs and matching map
+!simulation/canyon_gauntlet/real_usgs.tif
+!simulation/canyon_gauntlet/static_slope_costmap.npy

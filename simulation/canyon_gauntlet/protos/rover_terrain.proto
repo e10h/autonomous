@@ -1,0 +1,1822 @@
+#VRML_SIM R2025a utf8
+# license: Apache License 2.0
+# license url: http://www.apache.org/licenses/LICENSE-2.0
+# This is a proto file for Webots for the rover2
+# Extracted from: C:/Users/prana/Documents/Yonder_Dynamics/yonder_sim/urdfs/rover_urdf2/robot.urdf
+
+PROTO rover_terrain [
+  field  SFVec3f     translation     0 1 0
+  field  SFRotation  rotation        0 0 1 0
+  field  SFString    name            "rover2"  # Is `Robot.name`.
+  field  SFString    controller      "void"    # Is `Robot.controller`.
+  field  MFString    controllerArgs  []        # Is `Robot.controllerArgs`.
+  field  SFString    customData      ""        # Is `Robot.customData`.
+  field  SFBool      supervisor      FALSE     # Is `Robot.supervisor`.
+  field  SFBool      synchronization TRUE      # Is `Robot.synchronization`.
+  field  SFBool      selfCollision   FALSE     # Is `Robot.selfCollision`.
+  field  SFString    depthCameraName         "oakd_rgb"
+  field  SFString    depthRangeFinderName    "oakd_depth"
+  field  SFVec3f     depthCameraTranslation  -0.96 0.27 0.3     # adjust to match your real mount
+  field  SFRotation  depthCameraRotation     0 0 1 1.57       # adjust orientation if needed
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    controller IS controller
+    controllerArgs IS controllerArgs
+    customData IS customData
+    supervisor IS supervisor
+    synchronization IS synchronization
+    selfCollision IS selfCollision
+    children [
+      Pose {
+        translation -0.417286 -0.463829 -0.031465
+        rotation 1.000000 0.000116 -0.000749 3.136230
+        children [
+          Shape {
+            appearance DEF part_3_material PBRAppearance {
+              baseColor 0.901961 0.901961 0.901961
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF part_3 Mesh {
+              url "../assets/rover_assets/part_3.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation -0.743598 0.205923 -0.215865
+        rotation 0.999999 0.000867 -0.000634 1.565440
+        children [
+          Shape {
+            appearance DEF cdp_seating_tubing_bracket_material PBRAppearance {
+              baseColor 0.250980 0.250980 0.866667
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF cdp_seating_tubing_bracket Mesh {
+              url "../assets/rover_assets/cdp_seating_tubing_bracket.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation -0.972173 0.205440 -0.215343
+        rotation 0.999999 0.000867 -0.000634 1.565440
+        children [
+          Shape {
+            appearance DEF arm_seating_tubing_bracket_material PBRAppearance {
+              baseColor 0.250980 0.250980 0.866667
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF arm_seating_tubing_bracket Mesh {
+              url "../assets/rover_assets/arm_seating_tubing_bracket.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation 0.656545 -0.201918 -0.215775
+        rotation -0.000446 -0.709001 -0.705208 3.140366
+        children [
+          Shape {
+            appearance DEF cdp_seating_tubing_bracket_2_material PBRAppearance {
+              baseColor 0.250980 0.250980 0.866667
+              roughness 1.000000
+              metalness 0
+            }
+            geometry USE cdp_seating_tubing_bracket
+          }
+        ]
+      }
+      Pose {
+        translation -0.417396 -0.009906 -0.035164
+        rotation 1.000000 0.000116 -0.000749 3.136230
+        children [
+          Shape {
+            appearance DEF part_3_2_material PBRAppearance {
+              baseColor 0.901961 0.901961 0.901961
+              roughness 1.000000
+              metalness 0
+            }
+            geometry USE part_3
+          }
+        ]
+      }
+      Pose {
+        translation -0.417289 -0.451040 -0.031533
+        rotation 1.000000 0.000116 -0.000749 3.136230
+        children [
+          Shape {
+            appearance DEF part_3_3_material PBRAppearance {
+              baseColor 0.901961 0.901961 0.901961
+              roughness 1.000000
+              metalness 0
+            }
+            geometry USE part_3
+          }
+        ]
+      }
+      Pose {
+        translation 0.052630 -0.218575 0.016685
+        rotation 1.000000 0.000116 -0.000749 3.136230
+        children [
+          Shape {
+            appearance DEF p1_125x0_5_bearing_material PBRAppearance {
+              baseColor 0.647059 0.647059 0.647059
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF p1_125x0_5_bearing Mesh {
+              url "../assets/rover_assets/1_125x0_5_bearing.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation -0.743574 0.205492 -0.215685
+        rotation 0.999999 0.000867 -0.000634 1.565440
+        children [
+          Shape {
+            appearance DEF arm_seating_tubing_bracket_2_material PBRAppearance {
+              baseColor 0.250980 0.250980 0.866667
+              roughness 1.000000
+              metalness 0
+            }
+            geometry USE arm_seating_tubing_bracket
+          }
+        ]
+      }
+      Pose {
+        translation 0.052521 0.235348 0.012985
+        rotation 1.000000 0.000116 -0.000749 3.136230
+        children [
+          Shape {
+            appearance DEF p1_125x0_5_bearing_2_material PBRAppearance {
+              baseColor 0.647059 0.647059 0.647059
+              roughness 1.000000
+              metalness 0
+            }
+            geometry USE p1_125x0_5_bearing
+          }
+        ]
+      }
+      Pose {
+        translation 0.052633 -0.228824 0.016740
+        rotation -0.962287 0.268825 0.041679 0.005571
+        children [
+          Shape {
+            appearance DEF p1_125x0_5_bearing_3_material PBRAppearance {
+              baseColor 0.647059 0.647059 0.647059
+              roughness 1.000000
+              metalness 0
+            }
+            geometry USE p1_125x0_5_bearing
+          }
+        ]
+      }
+      Pose {
+        translation 0.052524 0.225099 0.013040
+        rotation -0.962287 0.268825 0.041679 0.005571
+        children [
+          Shape {
+            appearance DEF p1_125x0_5_bearing_4_material PBRAppearance {
+              baseColor 0.647059 0.647059 0.647059
+              roughness 1.000000
+              metalness 0
+            }
+            geometry USE p1_125x0_5_bearing
+          }
+        ]
+      }
+      Pose {
+        translation -0.417247 0.003427 0.066365
+        rotation 0.999999 0.000867 -0.000634 1.565440
+        children [
+          Shape {
+            appearance DEF back_and_sides_material PBRAppearance {
+              baseColor 0.250980 0.250980 0.866667
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF back_and_sides Mesh {
+              url "../assets/rover_assets/back_and_sides.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation -0.417359 0.470139 0.062597
+        rotation -0.962287 0.268825 0.041679 0.005571
+        children [
+          Shape {
+            appearance DEF part_3_4_material PBRAppearance {
+              baseColor 0.901961 0.901961 0.901961
+              roughness 1.000000
+              metalness 0
+            }
+            geometry USE part_3
+          }
+        ]
+      }
+      Pose {
+        translation IS depthCameraTranslation
+        rotation IS depthCameraRotation
+        children [
+          Camera {
+            translation -0.27 -1.31 -0.27
+            rotation 0 0 1 -1.57
+            name IS depthCameraName
+            width 640
+            height 480
+            fieldOfView 0.785
+          }
+          RangeFinder {
+            translation -0.27 -1.31 -0.27
+            rotation 0 0 1 -1.57
+            name IS depthRangeFinderName
+            width 640
+            height 480
+            fieldOfView 0.785
+            minRange 0.1
+            maxRange 20
+          }
+        ]
+      }
+      HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0.000241 -0.999986 0.005356
+          anchor 0.052519 0.246143 0.012927
+          springConstant 100
+        }
+        device [
+          PositionSensor {
+            name "left_leg_sensor"
+          }
+        ]
+        endPoint Solid {
+          translation 0.052519 0.246143 0.012927
+          rotation -0.000613 0.705210 -0.708998 3.142484
+          children [
+            Pose {
+              translation 0.000000 0.000000 -0.030162
+              rotation 1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF motor_bracket_material PBRAppearance {
+                    baseColor 0.498039 0.498039 0.498039
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF motor_bracket Mesh {
+                    url "../assets/rover_assets/motor_bracket.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.007620
+              rotation -1.000000 0.000000 -0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF p1_125x0_5_bearing_5_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF p1_125x0_5_bearing__2 Mesh {
+                    url "../assets/rover_assets/1_125x0_5_bearing__2.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.030162
+              rotation 1.000000 0.000000 -0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF pd_000001_material PBRAppearance {
+                    baseColor 0.713725 0.760784 0.800000
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF pd_000001 Mesh {
+                    url "../assets/rover_assets/pd_000001.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation -0.000000 0.000000 -0.058737
+              rotation 1.000000 0.000000 -0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF pd_000003_material PBRAppearance {
+                    baseColor 0.713725 0.760784 0.800000
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF pd_000003 Mesh {
+                    url "../assets/rover_assets/pd_000003.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.030162
+              rotation 1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF pd_000003_2_material PBRAppearance {
+                    baseColor 0.713725 0.760784 0.800000
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE pd_000003
+                }
+              ]
+            }
+            Pose {
+              translation 0.026988 0.046744 -0.030162
+              rotation 1.000000 0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF motor_bracket_2_material PBRAppearance {
+                    baseColor 0.498039 0.498039 0.498039
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE motor_bracket
+                }
+              ]
+            }
+            Pose {
+              translation 0.250216 0.144462 -0.027305
+              rotation 1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF p1_125x0_5_bearing_6_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE p1_125x0_5_bearing__2
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.030162
+              rotation 1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF tube_2_x1_x21_952_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF tube_2_x1_x21_952 Mesh {
+                    url "../assets/rover_assets/tube_2_x1_x21_952.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.030162
+              rotation 1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF tube_2_x1_x13_202_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF tube_2_x1_x13_202 Mesh {
+                    url "../assets/rover_assets/tube_2_x1_x13_202.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.001587
+              rotation 1.000000 0.000000 -0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF pd_000001_2_material PBRAppearance {
+                    baseColor 0.713725 0.760784 0.800000
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE pd_000001
+                }
+              ]
+            }
+            Pose {
+              translation -0.012700 0.000000 -0.017462
+              rotation 0.577350 0.577350 -0.577352 2.094399
+              children [
+                Shape {
+                  appearance DEF balljointa_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF balljointa Mesh {
+                    url "../assets/rover_assets/balljointa.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.030162
+              rotation 1.000000 0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF chassis_motor_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF chassis_motor Mesh {
+                    url "../assets/rover_assets/chassis_motor.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation -0.000000 0.000000 -0.030162
+              rotation 1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF diff_block_material PBRAppearance {
+                    baseColor 0.800000 0.800000 0.800000
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF diff_block Mesh {
+                    url "../assets/rover_assets/diff_block.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.027305
+              rotation 0.577350 0.577352 0.577350 2.094399
+              children [
+                Shape {
+                  appearance DEF p1_2_3_5screw_material PBRAppearance {
+                    baseColor 0.301961 0.301961 0.301961
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF p1_2_3_5screw Mesh {
+                    url "../assets/rover_assets/1_2_3_5screw.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.027305
+              rotation 1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF p1_125x0_5_bearing_7_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE p1_125x0_5_bearing__2
+                }
+              ]
+            }
+            Pose {
+              translation 0.250216 0.144462 -0.007620
+              rotation -1.000000 0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF p1_125x0_5_bearing_8_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE p1_125x0_5_bearing__2
+                }
+              ]
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                axis 0.000000 0.000000 1.000000
+                anchor 0.250216 0.144462 -0.038100
+                springConstant 50
+              }
+              device [
+                PositionSensor {
+                  name "left_knee_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0.250216 0.144462 -0.038100
+                rotation 0.000000 -0.000000 1.000000 0.003764
+                children [
+                  Pose {
+                    translation -0.250216 -0.144462 0.007938
+                    rotation 1.000000 0.000000 -0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF tube_2_x1_x11_327_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF tube_2_x1_x11_327 Mesh {
+                          url "../assets/rover_assets/tube_2_x1_x11_327.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.250216 -0.144462 0.007938
+                    rotation 1.000000 0.000000 -0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF tube_2_x1_x11_327_2_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF tube_2_x1_x11_327__2 Mesh {
+                          url "../assets/rover_assets/tube_2_x1_x11_327__2.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.209481 -0.183269 -0.030162
+                    rotation 0.377963 -0.654655 -0.654653 2.418863
+                    children [
+                      Shape {
+                        appearance DEF motor_bracket_3_material PBRAppearance {
+                          baseColor 0.498039 0.498039 0.498039
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE motor_bracket
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.236468 -0.136525 -0.030162
+                    rotation 1.000000 0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF chassis_motor_2_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE chassis_motor
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.236468 -0.136525 -0.030162
+                    rotation 1.000000 0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF motor_bracket_4_material PBRAppearance {
+                          baseColor 0.498039 0.498039 0.498039
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE motor_bracket
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.236468 -0.136525 -0.030162
+                    rotation 0.377963 -0.654655 -0.654653 2.418863
+                    children [
+                      Shape {
+                        appearance DEF chassis_motor_3_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE chassis_motor
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.000000 0.000000 -0.007620
+                    rotation -1.000000 0.000000 -0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF p1_125x0_5_bearing_9_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE p1_125x0_5_bearing__2
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.250216 -0.144462 0.007938
+                    rotation 1.000000 0.000000 -0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF pd_000002_material PBRAppearance {
+                          baseColor 0.713725 0.760784 0.800000
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF pd_000002 Mesh {
+                          url "../assets/rover_assets/pd_000002.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.000000 0.000000 -0.027305
+                    rotation 0.577350 0.577352 0.577350 2.094399
+                    children [
+                      Shape {
+                        appearance DEF p1_2_3_5screw_2_material PBRAppearance {
+                          baseColor 0.301961 0.301961 0.301961
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE p1_2_3_5screw
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.263456 -0.089781 -0.030162
+                    rotation 1.000000 0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF motor_bracket_5_material PBRAppearance {
+                          baseColor 0.498039 0.498039 0.498039
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE motor_bracket
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.236468 -0.136525 -0.030162
+                    rotation 0.377963 -0.654655 -0.654653 2.418863
+                    children [
+                      Shape {
+                        appearance DEF motor_bracket_6_material PBRAppearance {
+                          baseColor 0.498039 0.498039 0.498039
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE motor_bracket
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.250216 -0.144462 0.036513
+                    rotation 1.000000 0.000000 -0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF pd_000002_2_material PBRAppearance {
+                          baseColor 0.713725 0.760784 0.800000
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE pd_000002
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.000000 0.000000 -0.027305
+                    rotation 1.000000 0.000000 -0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF p1_125x0_5_bearing_10_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE p1_125x0_5_bearing__2
+                      }
+                    ]
+                  }
+                  HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis 0.000000 0.000000 1.000000
+                      anchor -0.269464 0.155575 -0.121603
+                    }
+                    device [
+                      RotationalMotor {
+                        name "left_middle_wheel"
+                        maxVelocity 50.0
+                        maxTorque 50.0
+                      }
+                      PositionSensor {
+                        name "left_middle_wheel_sensor"
+                      }
+                    ]
+                    endPoint Solid {
+                      translation -0.269464 0.155575 -0.121603
+                      rotation 0.000000 0.000000 -1.000000 0.003764
+                      children [
+                        Pose {
+                          translation 0.000000 0.000000 -0.019385
+                          rotation 0.577350 0.577350 -0.577352 2.094399
+                          children [
+                            Shape {
+                              appearance DEF am_0096a_500_hex_hub_r2_step_1_material PBRAppearance {
+                                baseColor 0.866667 0.909804 1.000000
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF am_0096a_500_hex_hub_r2_step_1 Mesh {
+                                url "../assets/rover_assets/am_0096a_500_hex_hub_r2_step_1.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.052519 -0.090966 -0.036736
+                          rotation -0.866025 -0.500001 0.000001 3.141590
+                          children [
+                            Shape {
+                              castShadows FALSE
+                              appearance DEF part_1_material PBRAppearance {
+                                baseColor 0.600000 0.600000 0.600000
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF part_1 Mesh {
+                                url "../assets/rover_assets/part_1.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation 0.000000 0.000000 -0.098171
+                          rotation 0.000000 0.000000 -1.000000 0.523599
+                          children [
+                            Shape {
+                              appearance DEF part_1_2_material PBRAppearance {
+                                baseColor 0.301961 0.301961 0.301961
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF part_1__2 Mesh {
+                                url "../assets/rover_assets/part_1__2.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation 0.000000 0.000000 0.023749
+                          rotation 0.965926 -0.258819 -0.000000 3.141590
+                          children [
+                            Shape {
+                              appearance DEF part_1_3_material PBRAppearance {
+                                baseColor 0.301961 0.301961 0.301961
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry USE part_1__2
+                            }
+                          ]
+                        }
+                      ]
+                      name "wheel_assembly"
+                      boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                      physics Physics {
+                        density -1
+                        mass 1.054130
+                        centerOfMass [ 0.000000 -0.000000 -0.035883 ]
+                        inertiaMatrix [
+                          9.377520e-03 9.377520e-03 1.114460e-02
+                          -1.640000e-10 -1.564000e-09 9.050000e-10
+                        ]
+                      }
+                    }
+                  }
+                  HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis 0.000000 0.000000 1.000000
+                      anchor 0.269464 0.155575 -0.121603
+                    }
+                    device [
+                      RotationalMotor {
+                        name "left_back_wheel"
+                        maxVelocity 50.0
+                        maxTorque 50.0
+                      }
+                      PositionSensor {
+                        name "left_back_wheel_sensor"
+                      }
+                    ]
+                    endPoint Solid {
+                      translation 0.269464 0.155575 -0.121603
+                      rotation 0.000000 0.000000 1.000000 1.043700
+                      children [
+                        Pose {
+                          translation -0.000000 -0.000000 -0.019385
+                          rotation 0.577350 0.577350 -0.577352 2.094399
+                          children [
+                            Shape {
+                              appearance DEF am_0096a_500_hex_hub_r2_step_1_2_material PBRAppearance {
+                                baseColor 0.866667 0.909804 1.000000
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry USE am_0096a_500_hex_hub_r2_step_1
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.052519 -0.090966 -0.036736
+                          rotation -0.866025 -0.500001 0.000001 3.141590
+                          children [
+                            Shape {
+                              castShadows FALSE
+                              appearance DEF part_1_4_material PBRAppearance {
+                                baseColor 0.600000 0.600000 0.600000
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry USE part_1
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.000000 0.000000 -0.098171
+                          rotation 0.000000 0.000000 -1.000000 0.523599
+                          children [
+                            Shape {
+                              appearance DEF part_1_5_material PBRAppearance {
+                                baseColor 0.301961 0.301961 0.301961
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry USE part_1__2
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.000000 0.000000 0.023749
+                          rotation -0.965926 0.258819 -0.000000 3.141590
+                          children [
+                            Shape {
+                              appearance DEF part_1_6_material PBRAppearance {
+                                baseColor 0.301961 0.301961 0.301961
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry USE part_1__2
+                            }
+                          ]
+                        }
+                      ]
+                      name "wheel_assembly_2"
+                      boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                      physics Physics {
+                        density -1
+                        mass 1.054130
+                        centerOfMass [ 0.000000 -0.000000 -0.035883 ]
+                        inertiaMatrix [
+                          9.377520e-03 9.377520e-03 1.114460e-02
+                          -1.640000e-10 -1.564000e-09 9.050000e-10
+                        ]
+                      }
+                    }
+                  }
+                ]
+                name "lower_legs"
+                boundingObject Pose { translation 0.000001 0.081847 -0.045243 children [ Box { size 0.611499 0.222351 0.198436 } ] }
+                physics Physics {
+                  density -1
+                  mass 2.086390
+                  centerOfMass [ -0.000000 0.117047 -0.053212 ]
+                  inertiaMatrix [
+                    9.447360e-03 1.071320e-01 1.108950e-01
+                    0.000000e+00 -0.000000e+00 2.945000e-03
+                  ]
+                }
+              }
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                axis 0.000000 0.000000 1.000000
+                anchor -0.505932 0.292100 -0.121603
+              }
+              device [
+                RotationalMotor {
+                  name "left_front_wheel"
+                  maxVelocity 50.0
+                  maxTorque 50.0
+                }
+                PositionSensor {
+                  name "left_front_wheel_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation -0.505932 0.292100 -0.121603
+                rotation -0.000000 0.000000 1.000000 0.000264
+                children [
+                  Pose {
+                    translation 0.000000 0.000000 -0.019385
+                    rotation 0.577350 0.577350 -0.577352 2.094399
+                    children [
+                      Shape {
+                        appearance DEF am_0096a_500_hex_hub_r2_step_1_3_material PBRAppearance {
+                          baseColor 0.866667 0.909804 1.000000
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE am_0096a_500_hex_hub_r2_step_1
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.052519 -0.090966 -0.036736
+                    rotation -0.866025 -0.500001 0.000001 3.141590
+                    children [
+                      Shape {
+                        castShadows FALSE
+                        appearance DEF part_1_7_material PBRAppearance {
+                          baseColor 0.600000 0.600000 0.600000
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE part_1
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.000000 0.000000 -0.098171
+                    rotation 0.000000 0.000000 -1.000000 0.523599
+                    children [
+                      Shape {
+                        appearance DEF part_1_8_material PBRAppearance {
+                          baseColor 0.301961 0.301961 0.301961
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE part_1__2
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.000000 0.000000 0.023749
+                    rotation 0.965926 -0.258819 -0.000000 3.141590
+                    children [
+                      Shape {
+                        appearance DEF part_1_9_material PBRAppearance {
+                          baseColor 0.301961 0.301961 0.301961
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE part_1__2
+                      }
+                    ]
+                  }
+                ]
+                name "wheel_assembly_3"
+                boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                physics Physics {
+                  density -1
+                  mass 1.054130
+                  centerOfMass [ 0.000000 -0.000000 -0.035883 ]
+                  inertiaMatrix [
+                    9.377520e-03 9.377520e-03 1.114460e-02
+                    -1.640000e-10 -1.564000e-09 9.050000e-10
+                  ]
+                }
+              }
+            }
+          ]
+          name "upper_legs"
+          boundingObject Pose { translation -0.124527 0.117846 -0.045243 children [ Box { size 0.835379 0.423402 0.198436 } ] }
+          physics Physics {
+            density -1
+            mass 2.081730
+            centerOfMass [ -0.197627 0.152075 -0.035229 ]
+            inertiaMatrix [
+              3.036790e-02 1.478710e-01 1.737550e-01
+              5.198380e-02 -1.169350e-02 5.346750e-03
+            ]
+          }
+        }
+      }
+      HingeJoint {
+        jointParameters HingeJointParameters {
+          axis -0.000241 0.999986 -0.005364
+          anchor 0.052635 -0.239619 0.016797
+          springConstant 100
+        }
+        device [
+          PositionSensor {
+            name "right_leg_sensor"
+          }
+        ]
+        endPoint Solid {
+          translation 0.052635 -0.239619 0.016797
+          rotation -0.000446 -0.709001 -0.705208 3.140366
+          children [
+            Pose {
+              translation 0.250216 -0.144462 -0.027305
+              rotation 1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF p1_125x0_5_bearing_11_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF p1_125x0_5_bearing__3 Mesh {
+                    url "../assets/rover_assets/1_125x0_5_bearing__3.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation -0.000000 0.000000 0.023813
+              rotation -1.000000 0.000000 -0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF pd_000003_3_material PBRAppearance {
+                    baseColor 0.713725 0.760784 0.800000
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF pd_000003__2 Mesh {
+                    url "../assets/rover_assets/pd_000003__2.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation -0.000000 0.000000 -0.027305
+              rotation 0.577350 -0.577352 -0.577350 2.094399
+              children [
+                Shape {
+                  appearance DEF p1_2_3_5screw_3_material PBRAppearance {
+                    baseColor 0.301961 0.301961 0.301961
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF p1_2_3_5screw__2 Mesh {
+                    url "../assets/rover_assets/1_2_3_5screw__2.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation -0.000000 0.000000 -0.004763
+              rotation -1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF diff_block_2_material PBRAppearance {
+                    baseColor 0.800000 0.800000 0.800000
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF diff_block__2 Mesh {
+                    url "../assets/rover_assets/diff_block__2.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation -0.026988 0.046744 -0.030162
+              rotation 0.774596 0.447215 0.447213 1.823481
+              children [
+                Shape {
+                  appearance DEF motor_bracket_7_material PBRAppearance {
+                    baseColor 0.498039 0.498039 0.498039
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF motor_bracket__2 Mesh {
+                    url "../assets/rover_assets/motor_bracket__2.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 -0.000000 -0.007620
+              rotation -1.000000 0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF p1_125x0_5_bearing_12_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE p1_125x0_5_bearing__3
+                }
+              ]
+            }
+            Pose {
+              translation -0.012700 0.000000 -0.017462
+              rotation -0.577350 -0.577350 -0.577352 2.094399
+              children [
+                Shape {
+                  appearance DEF balljointa_2_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF balljointa__2 Mesh {
+                    url "../assets/rover_assets/balljointa__2.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation -0.000000 0.000000 -0.004763
+              rotation -1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF tube_2_x1_x21_952_2_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF tube_2_x1_x21_952__2 Mesh {
+                    url "../assets/rover_assets/tube_2_x1_x21_952__2.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation -0.000000 0.000000 -0.004763
+              rotation -1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF pd_000001_3_material PBRAppearance {
+                    baseColor 0.713725 0.760784 0.800000
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF pd_000001__2 Mesh {
+                    url "../assets/rover_assets/pd_000001__2.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation -0.000000 0.000000 -0.027305
+              rotation 1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF p1_125x0_5_bearing_13_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE p1_125x0_5_bearing__3
+                }
+              ]
+            }
+            Pose {
+              translation -0.000000 0.000000 -0.033337
+              rotation -1.000000 0.000000 -0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF pd_000001_4_material PBRAppearance {
+                    baseColor 0.713725 0.760784 0.800000
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE pd_000001__2
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 -0.000000 -0.030162
+              rotation 0.774596 0.447215 0.447213 1.823481
+              children [
+                Shape {
+                  appearance DEF motor_bracket_8_material PBRAppearance {
+                    baseColor 0.498039 0.498039 0.498039
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE motor_bracket__2
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.004763
+              rotation -1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF tube_2_x1_x13_202_2_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF tube_2_x1_x13_202__2 Mesh {
+                    url "../assets/rover_assets/tube_2_x1_x13_202__2.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation 0.250216 -0.144462 -0.007620
+              rotation -1.000000 -0.000000 0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF p1_125x0_5_bearing_14_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE p1_125x0_5_bearing__3
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.030162
+              rotation 0.774596 0.447215 0.447213 1.823481
+              children [
+                Shape {
+                  appearance DEF chassis_motor_4_material PBRAppearance {
+                    baseColor 0.647059 0.647059 0.647059
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF chassis_motor__2 Mesh {
+                    url "../assets/rover_assets/chassis_motor__2.stl"
+                  }
+                }
+              ]
+            }
+            Pose {
+              translation 0.000000 0.000000 -0.004763
+              rotation -1.000000 0.000000 -0.000000 1.570800
+              children [
+                Shape {
+                  appearance DEF pd_000003_4_material PBRAppearance {
+                    baseColor 0.713725 0.760784 0.800000
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry USE pd_000003__2
+                }
+              ]
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                axis 0.000000 -0.000000 1.000000
+                anchor 0.250216 -0.144462 -0.038100
+                springConstant 50
+              }
+              device [
+                PositionSensor {
+                  name "right_knee_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0.250216 -0.144462 -0.038100
+                rotation 0.000000 0.000000 -1.000000 3.138200
+                children [
+                  Pose {
+                    translation -0.250216 -0.144462 0.007938
+                    rotation 1.000000 -0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF pd_000002_3_material PBRAppearance {
+                          baseColor 0.713725 0.760784 0.800000
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF pd_000002__2 Mesh {
+                          url "../assets/rover_assets/pd_000002__2.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.236468 -0.136525 -0.030162
+                    rotation 1.000000 -0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF motor_bracket_9_material PBRAppearance {
+                          baseColor 0.498039 0.498039 0.498039
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE motor_bracket__2
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.263456 -0.089781 -0.030162
+                    rotation 1.000000 0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF motor_bracket_10_material PBRAppearance {
+                          baseColor 0.498039 0.498039 0.498039
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE motor_bracket__2
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.000000 -0.000000 -0.027305
+                    rotation 0.577350 0.577352 0.577350 2.094399
+                    children [
+                      Shape {
+                        appearance DEF p1_2_3_5screw_4_material PBRAppearance {
+                          baseColor 0.301961 0.301961 0.301961
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE p1_2_3_5screw__2
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.209481 -0.183269 -0.030162
+                    rotation 0.377963 -0.654655 -0.654653 2.418863
+                    children [
+                      Shape {
+                        appearance DEF motor_bracket_11_material PBRAppearance {
+                          baseColor 0.498039 0.498039 0.498039
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE motor_bracket__2
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.236468 -0.136525 -0.030162
+                    rotation 0.377963 -0.654655 -0.654653 2.418863
+                    children [
+                      Shape {
+                        appearance DEF chassis_motor_5_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE chassis_motor__2
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.000000 -0.000000 -0.007620
+                    rotation -1.000000 0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF p1_125x0_5_bearing_15_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE p1_125x0_5_bearing__3
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.250216 -0.144462 0.007938
+                    rotation 1.000000 -0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF tube_2_x1_x11_327_3_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF tube_2_x1_x11_327__3 Mesh {
+                          url "../assets/rover_assets/tube_2_x1_x11_327__3.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.000000 -0.000000 -0.027305
+                    rotation 1.000000 -0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF p1_125x0_5_bearing_16_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE p1_125x0_5_bearing__3
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.236468 -0.136525 -0.030162
+                    rotation 1.000000 0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF chassis_motor_6_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE chassis_motor__2
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.236468 -0.136525 -0.030162
+                    rotation 0.377963 -0.654655 -0.654653 2.418863
+                    children [
+                      Shape {
+                        appearance DEF motor_bracket_12_material PBRAppearance {
+                          baseColor 0.498039 0.498039 0.498039
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE motor_bracket__2
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.250216 -0.144462 0.036513
+                    rotation 1.000000 -0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF pd_000002_4_material PBRAppearance {
+                          baseColor 0.713725 0.760784 0.800000
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE pd_000002__2
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.250216 -0.144462 0.007938
+                    rotation 1.000000 -0.000000 0.000000 1.570800
+                    children [
+                      Shape {
+                        appearance DEF tube_2_x1_x11_327_4_material PBRAppearance {
+                          baseColor 0.647059 0.647059 0.647059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF tube_2_x1_x11_327__4 Mesh {
+                          url "../assets/rover_assets/tube_2_x1_x11_327__4.stl"
+                        }
+                      }
+                    ]
+                  }
+                  HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis 0.000000 0.000000 1.000000
+                      anchor -0.269464 0.155575 -0.121603
+                    }
+                    device [
+                      RotationalMotor {
+                        name "right_back_wheel"
+                        maxVelocity 50.0
+                        maxTorque 50.0
+                      }
+                      PositionSensor {
+                        name "right_back_wheel_sensor"
+                      }
+                    ]
+                    endPoint Solid {
+                      translation -0.269464 0.155575 -0.121603
+                      rotation -0.000000 0.000000 1.000000 3.137870
+                      children [
+                        Pose {
+                          translation 0.000000 0.000000 -0.019385
+                          rotation 0.577350 0.577350 -0.577352 2.094399
+                          children [
+                            Shape {
+                              appearance DEF am_0096a_500_hex_hub_r2_step_1_4_material PBRAppearance {
+                                baseColor 0.866667 0.909804 1.000000
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF am_0096a_500_hex_hub_r2_step_1__2 Mesh {
+                                url "../assets/rover_assets/am_0096a_500_hex_hub_r2_step_1__2.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.052519 -0.090966 -0.036736
+                          rotation 0.866025 0.500001 0.000001 3.141590
+                          children [
+                            Shape {
+                              castShadows FALSE
+                              appearance DEF part_1_10_material PBRAppearance {
+                                baseColor 0.600000 0.600000 0.600000
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF part_1__3 Mesh {
+                                url "../assets/rover_assets/part_1__3.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation 0.000000 0.000000 -0.098171
+                          rotation 0.000000 -0.000000 -1.000000 0.523599
+                          children [
+                            Shape {
+                              appearance DEF part_1_11_material PBRAppearance {
+                                baseColor 0.301961 0.301961 0.301961
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF part_1__4 Mesh {
+                                url "../assets/rover_assets/part_1__4.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation 0.000000 -0.000000 0.023749
+                          rotation -0.965926 0.258819 -0.000000 3.141590
+                          children [
+                            Shape {
+                              appearance DEF part_1_12_material PBRAppearance {
+                                baseColor 0.301961 0.301961 0.301961
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry USE part_1__4
+                            }
+                          ]
+                        }
+                      ]
+                      name "wheel_assembly_4"
+                      boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                      physics Physics {
+                        density -1
+                        mass 1.054130
+                        centerOfMass [ 0.000000 -0.000000 -0.035883 ]
+                        inertiaMatrix [
+                          9.377520e-03 9.377520e-03 1.114460e-02
+                          -1.640000e-10 -1.564000e-09 9.050000e-10
+                        ]
+                      }
+                    }
+                  }
+                  HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis 0.000000 0.000000 1.000000
+                      anchor 0.269464 0.155575 -0.121603
+                    }
+                    device [
+                      RotationalMotor {
+                        name "right_middle_wheel"
+                        maxVelocity 50.0
+                        maxTorque 50.0
+                      }
+                      PositionSensor {
+                        name "right_middle_wheel_sensor"
+                      }
+                    ]
+                    endPoint Solid {
+                      translation 0.269464 0.155575 -0.121603
+                      rotation -0.000000 0.000000 1.000000 2.614270
+                      children [
+                        Pose {
+                          translation -0.000000 0.000000 -0.019385
+                          rotation 0.577350 0.577350 -0.577352 2.094399
+                          children [
+                            Shape {
+                              appearance DEF am_0096a_500_hex_hub_r2_step_1_5_material PBRAppearance {
+                                baseColor 0.866667 0.909804 1.000000
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry USE am_0096a_500_hex_hub_r2_step_1__2
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.052519 -0.090966 -0.036736
+                          rotation 0.866025 0.500001 0.000001 3.141590
+                          children [
+                            Shape {
+                              castShadows FALSE
+                              appearance DEF part_1_13_material PBRAppearance {
+                                baseColor 0.600000 0.600000 0.600000
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry USE part_1__3
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.000000 0.000000 -0.098171
+                          rotation 0.000000 -0.000000 -1.000000 0.523599
+                          children [
+                            Shape {
+                              appearance DEF part_1_14_material PBRAppearance {
+                                baseColor 0.301961 0.301961 0.301961
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry USE part_1__4
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.000000 0.000000 0.023749
+                          rotation -0.965926 0.258819 -0.000000 3.141590
+                          children [
+                            Shape {
+                              appearance DEF part_1_15_material PBRAppearance {
+                                baseColor 0.301961 0.301961 0.301961
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry USE part_1__4
+                            }
+                          ]
+                        }
+                      ]
+                      name "wheel_assembly_5"
+                      boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                      physics Physics {
+                        density -1
+                        mass 1.054130
+                        centerOfMass [ 0.000000 -0.000000 -0.035883 ]
+                        inertiaMatrix [
+                          9.377520e-03 9.377520e-03 1.114460e-02
+                          -1.640000e-10 -1.564000e-09 9.050000e-10
+                        ]
+                      }
+                    }
+                  }
+                ]
+                name "lower_legs_2"
+                boundingObject Pose { translation 0.000001 0.081847 -0.045243 children [ Box { size 0.611499 0.222351 0.198436 } ] }
+                physics Physics {
+                  density -1
+                  mass 2.086390
+                  centerOfMass [ 0.000000 0.117047 -0.053212 ]
+                  inertiaMatrix [
+                    9.447360e-03 1.071320e-01 1.108950e-01
+                    0.000000e+00 -0.000000e+00 2.945000e-03
+                  ]
+                }
+              }
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                axis 0.000000 0.000000 1.000000
+                anchor -0.505932 -0.292100 -0.121603
+              }
+              device [
+                RotationalMotor {
+                  name "right_front_wheel"
+                  maxVelocity 50.0
+                  maxTorque 50.0
+                }
+                PositionSensor {
+                  name "right_front_wheel_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation -0.505932 -0.292100 -0.121603
+                rotation 0.000000 0.000000 -1.000000 0.523929
+                children [
+                  Pose {
+                    translation -0.000000 0.000000 -0.019385
+                    rotation 0.577350 0.577350 -0.577352 2.094399
+                    children [
+                      Shape {
+                        appearance DEF am_0096a_500_hex_hub_r2_step_1_6_material PBRAppearance {
+                          baseColor 0.866667 0.909804 1.000000
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE am_0096a_500_hex_hub_r2_step_1__2
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation -0.052519 -0.090966 -0.036736
+                    rotation -0.866025 -0.500001 0.000001 3.141590
+                    children [
+                      Shape {
+                        castShadows FALSE
+                        appearance DEF part_1_16_material PBRAppearance {
+                          baseColor 0.600000 0.600000 0.600000
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE part_1__3
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.000000 0.000000 -0.098171
+                    rotation 0.000000 0.000000 -1.000000 0.523599
+                    children [
+                      Shape {
+                        appearance DEF part_1_17_material PBRAppearance {
+                          baseColor 0.301961 0.301961 0.301961
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE part_1__4
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.000000 0.000000 0.023749
+                    rotation -0.965926 0.258819 -0.000000 3.141590
+                    children [
+                      Shape {
+                        appearance DEF part_1_18_material PBRAppearance {
+                          baseColor 0.301961 0.301961 0.301961
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry USE part_1__4
+                      }
+                    ]
+                  }
+                ]
+                name "wheel_assembly_6"
+                boundingObject Pose { translation 0.000000 0.000000 -0.037206 rotation 1 0 0 1.57079632679 children [ Cylinder { radius 0.154284 height 0.182210 subdivision 16 } ] }
+                physics Physics {
+                  density -1
+                  mass 1.054130
+                  centerOfMass [ 0.000000 -0.000000 -0.035883 ]
+                  inertiaMatrix [
+                    9.377520e-03 9.377520e-03 1.114460e-02
+                    -1.640000e-10 -1.564000e-09 9.050000e-10
+                  ]
+                }
+              }
+            }
+          ]
+          name "upper_legs_2"
+          boundingObject Pose { translation -0.124527 -0.117847 -0.045243 children [ Box { size 0.835379 0.423403 0.198436 } ] }
+          physics Physics {
+            density -1
+            mass 2.081730
+            centerOfMass [ -0.197627 -0.152075 -0.035229 ]
+            inertiaMatrix [
+              3.036790e-02 1.478710e-01 1.737550e-01
+              -5.198380e-02 -1.169350e-02 -5.346750e-03
+            ]
+          }
+        }
+      }
+      Pose {
+        translation 0 0 0.2   # lift it slightly above base
+        rotation 0 1 0 3.14159
+        children [
+          GPS {
+            name "GPS"        # must match controller
+            type "satellite"
+            accuracy 0
+            noiseCorrelation 0
+            resolution -1
+            speedNoise 0
+            speedResolution -1
+          }
+          Compass {
+            name "compass"
+          }
+          InertialUnit {
+            name "imu"
+          }
+          Accelerometer {
+            name "accelerometer"
+          }
+          Gyro {
+            name "gyro"
+          }
+        ]
+        # Fixed sensor mount uses the Robot physics through Pose.
+      }
+    ]
+    name IS name
+    boundingObject Pose { translation -0.036323 0.003262 0.014992 children [ Box { size 0.762257 0.479582 0.105129 } ] }
+    physics Physics {
+      density -1
+      mass 3.879960
+      centerOfMass [ -0.034821 0.004977 0.015026 ]
+      inertiaMatrix [
+        1.333300e-01 2.208920e-01 3.452830e-01
+        2.738140e-03 4.633100e-03 6.387690e-04
+      ]
+    }
+  }
+}

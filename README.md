@@ -136,3 +136,8 @@ ros2 topic pub /autonomous/heartbeat std_msgs/msg/Bool "data: true" -r 1
 ## Known Issues
 
 - **Field of View Degradation Issue**: The local occupancy grid currently provides "free space" grid readings that are actually outside the physical field of view of the sensors. When integrated into the global map, this causes the probability mapping to falsely degrade (clear) tracked obstacle cells that it cannot actually see. 
+
+
+## Reproducible Canyon Gauntlet demo
+
+See [simulation/canyon_gauntlet/README.md](simulation/canyon_gauntlet/README.md) for the bundled terrain, anisotropic slope map, corrected rover physics, and launcher.

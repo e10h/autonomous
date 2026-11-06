@@ -339,12 +339,12 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 EXTERNPROTO "../protos/rover_terrain.proto"
 
 WorldInfo {{
-  basicTimeStep 16
+  basicTimeStep 8
   contactProperties [
     ContactProperties {{
       material1 "default"
       material2 "default"
-      maxContactJoints 50
+      maxContactJoints 8
     }}
   ]
   info [

@@ -1,0 +1,120 @@
+[INFO] [launch]: All log files can be found below /home/yonder/.ros/log/2026-11-06-02-45-41-620310-0103382762ee-61
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [python3-1]: process started with pid [89]
+[INFO] [static_transform_publisher-2]: process started with pid [90]
+[INFO] [static_transform_publisher-3]: process started with pid [91]
+[INFO] [static_transform_publisher-4]: process started with pid [92]
+[INFO] [navsat_transform_node-5]: process started with pid [93]
+[INFO] [python3-6]: process started with pid [94]
+[INFO] [python3-7]: process started with pid [95]
+[static_transform_publisher-3] [INFO] [1793933141.750322374] [tf_static_base_link_oakd_depth]: Spinning until stopped - publishing transform
+[static_transform_publisher-3] translation: ('0.300000', '0.000000', '0.480000')
+[static_transform_publisher-3] rotation: ('-0.500000', '0.500000', '-0.500000', '0.500000')
+[static_transform_publisher-3] from 'base_link' to 'oakd_depth_camera'
+[static_transform_publisher-2] [INFO] [1793933141.754973891] [tf_static_map_odom]: Spinning until stopped - publishing transform
+[static_transform_publisher-2] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-2] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-2] from 'map' to 'odom'
+[static_transform_publisher-4] [INFO] [1793933141.765634928] [tf_static_base_link_gps_link]: Spinning until stopped - publishing transform
+[static_transform_publisher-4] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-4] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-4] from 'base_link' to 'gps_link'
+[navsat_transform_node-5] [WARN] [1793933141.789173885] [navsat_transform]: Parameter 'broadcast_utm_transform' has been deprecated. Please use 'broadcast_cartesian_transform' instead.
+[navsat_transform_node-5] [INFO] [1793933141.789249219] [navsat_transform]: Waiting for clock to start...
+[python3-6] [INFO] [1793933142.279868558] [autonomous_state_machine]: Starting autonomous state machine node...
+[python3-6] [INFO] [1793933142.280738144] [autonomous_state_machine]: [GlobalMap] Loaded static slope layer from /tmp/autonomous-canyon-demo/demo/static_slope_costmap.npy
+[python3-6] [INFO] [1793933142.281026562] [autonomous_state_machine]: Initialized 30m x 30m Global Map Manager (cells: 0.1m)
+[python3-7] Device "front_camera" was not found on robot "rover2"
+[python3-6] [INFO] [1793933142.288926798] [autonomous_state_machine]: [StartState] Initializing subscribers...
+[python3-7] [WARN] [1793933142.294308150] [webots_bridge]: front_camera device not found; skipping camera publishing
+[python3-6] [INFO] [1793933142.298432206] [autonomous_state_machine]: [StartState] Subscriber initialization complete.
+[python3-6] [INFO] [1793933142.298773082] [autonomous_state_machine]: [StartState] Initializing publishers...
+[python3-6] [INFO] [1793933142.301224716] [autonomous_state_machine]: [StartState] Publisher initialization complete.
+[python3-6] [INFO] [1793933142.301404717] [autonomous_state_machine]: [StartState] ENTER — stopped, LED red, awaiting first waypoint
+[python3-7] [INFO] [1793933142.315153723] [webots_bridge]: origin set; GPS height 0.650 m, CAMERA_HEIGHT_M=0.9144
+[navsat_transform_node-5] [INFO] [1793933142.369617705] [navsat_transform]: Delaying for 5 seconds before starting...
+[python3-6] [INFO] [1793933142.568432900] [autonomous_state_machine]: FromLL service is available.
+[navsat_transform_node-5] [INFO] [1793933147.597722425] [navsat_transform]: Delay elapsed. Continuing.
+[navsat_transform_node-5] [INFO] [1793933147.598391636] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.598433469] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.599287055] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.599307972] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.601655772] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.601680522] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.647180348] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.647259724] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.651547947] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.651577364] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.656117796] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.656157963] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.662476819] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.662527527] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.669599052] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.669649677] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.674520486] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.674592319] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.680355715] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.680383173] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.687130905] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.687158697] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.695047933] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.695085891] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.701290246] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.701314746] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.708941023] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.708976940] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.716341049] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.716359299] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.726268001] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.726347709] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.734141237] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.734165112] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.742358265] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.742380265] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.748447578] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.748511037] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.755651354] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.755692354] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.762890629] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.762909421] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.772106286] [navsat_transform]: Datum (latitude, longitude, altitude) is (32.88, -117.24, 0.60)
+[navsat_transform_node-5] [INFO] [1793933147.772130453] [navsat_transform]: Datum UTM coordinate is (11 north, 477577.31, 3638264.11)
+[navsat_transform_node-5] [INFO] [1793933147.803085312] [navsat_transform]: Corrected for magnetic declination of 0, user-specified offset of 0 and meridian convergence of -0.00227145. Transform heading factor is now 3.11867
+[python3-6] [INFO] [1793933152.545804596] [autonomous_state_machine]: Received Autonomous Input: custom_msg_types.msg.AutonInput(latitude=32.882379187058156, longitude=-117.23975138207678, speed=0.6000000238418579, object_id=0)
+[python3-6] [INFO] [1793933152.546056763] [autonomous_state_machine]: cur_position: (-0.06800072191683174, -0.0008651539164171192)
+[python3-6] [INFO] [1793933152.546240930] [autonomous_state_machine]: cur_heading: 3.120786250650372
+[python3-6] [INFO] [1793933152.546636973] [autonomous_state_machine]: Auton input object_id: 0
+[python3-6] [INFO] [1793933152.546813641] [autonomous_state_machine]: Should_look_for_ar: False
+[python3-6] [INFO] [1793933152.548019312] [autonomous_state_machine]: New waypoints: [(-3.670239898725413, 8.961861461400986)]
+[python3-6] [INFO] [1793933152.563577658] [autonomous_state_machine]: [TF] map→odom goal: (-3.67, 8.96)
+[python3-6] [INFO] [1793933152.564548745] [autonomous_state_machine]: [TF] map→odom goal: (-3.67, 8.96)
+[python3-6] [INFO] [1793933152.567440922] [autonomous_state_machine]: [GlobalMap] Injected 1195 static slope cliff obstacles (>22 deg) into global map
+[python3-6] [INFO] [1793933152.570475057] [autonomous_state_machine]: [GlobalMap] Injected anisotropic terrain gradient vector field (Gx, Gy)
+[python3-6] [INFO] [1793933152.570941101] [autonomous_state_machine]: Set initial global origin to (-15.07, -15.00)
+[python3-6] [INFO] [1793933152.574477113] [autonomous_state_machine]: [GlobalMap] Anisotropic static planner generated 3 waypoints through Canyon Pass
+[python3-6] [INFO] [1793933152.574864073] [autonomous_state_machine]: [NewControllerState] [GlobalMap] Injected global Theta* trajectory (3 waypoints) around static slope & rock obstacles
+[python3-6] [INFO] [1793933152.575667076] [autonomous_state_machine]: [NewControllerState] [Viz] Broadcasted planned route (3 waypoints) to /autonomous/viz/oa_path
+[python3-6] [INFO] [1793933152.580294175] [autonomous_state_machine]: [NewControllerState] ENTER — PurePursuit initialized, 3 odom waypoints, goal heading 90.7°
+[python3-6] [INFO] [1793933152.581671972] [autonomous_state_machine]: [Transition] StartState → NewControllerState
+[python3-7] [INFO] [1793933152.584129439] [webots_bridge]: competition obstacle avoidance path: 3 points
+[python3-6] [INFO] [1793933152.584138689] [autonomous_state_machine]: [NewControllerState] PurePursuit ready — → DriveState
+[python3-6] [INFO] [1793933152.584756774] [autonomous_state_machine]: [Transition] NewControllerState → DriveState
+[python3-6] [INFO] [1793933152.609122610] [autonomous_state_machine]: [DriveState] ENTER — controller: PurePursuit, LED blue
+[python3-6] [INFO] [1793933195.991062282] [autonomous_state_machine]: [replan_to_goal] recalibration after 10.0m travel — re-planning from (-3.6488025553317662, 7.58651483965058) to goal (-3.670239898725413, 8.961861461400986)
+[python3-6] [INFO] [1793933195.992377496] [autonomous_state_machine]: [TF] map→odom goal: (-3.67, 8.96)
+[python3-6] [INFO] [1793933195.993690125] [autonomous_state_machine]: [GlobalMap] Anisotropic static planner generated 2 waypoints through Canyon Pass
+[python3-6] [INFO] [1793933195.993927709] [autonomous_state_machine]: [NewControllerState] [GlobalMap] Injected global Theta* trajectory (2 waypoints) around static slope & rock obstacles
+[python3-6] [INFO] [1793933195.994302128] [autonomous_state_machine]: [NewControllerState] [Viz] Broadcasted planned route (2 waypoints) to /autonomous/viz/oa_path
+[python3-6] [INFO] [1793933195.995787716] [autonomous_state_machine]: [NewControllerState] ENTER — PurePursuit initialized, 2 odom waypoints, goal heading 90.9°
+[python3-6] [INFO] [1793933195.996272426] [autonomous_state_machine]: [Transition] DriveState → NewControllerState
+[python3-7] [INFO] [1793933196.012850736] [webots_bridge]: competition obstacle avoidance path: 2 points
+[python3-6] [INFO] [1793933196.043031845] [autonomous_state_machine]: [TF] map→odom goal: (-3.67, 8.96)
+[python3-6] [INFO] [1793933196.043287471] [autonomous_state_machine]: [NewControllerState] PurePursuit ready — → DriveState
+[python3-6] [INFO] [1793933196.043786889] [autonomous_state_machine]: [Transition] NewControllerState → DriveState
+[python3-6] [INFO] [1793933196.070640236] [autonomous_state_machine]: [DriveState] ENTER — controller: PurePursuit, LED blue
+[python3-6] [INFO] [1793933200.327986915] [autonomous_state_machine]: [DriveState] goal reached (0.60m) — entering ValidatingState
+[python3-6] [INFO] [1793933200.328687209] [autonomous_state_machine]: [ValidatingState] ENTER — stopped, collecting 5 position samples to verify goal
+[python3-6] [INFO] [1793933200.329997755] [autonomous_state_machine]: [Transition] DriveState → ValidatingState
+[python3-6] [INFO] [1793933200.843906740] [autonomous_state_machine]: [ValidatingState] goal confirmed — → GoalState
+[python3-6] [INFO] [1793933200.844570534] [autonomous_state_machine]: [Transition] ValidatingState → GoalState
+[python3-6] [INFO] [1793933200.883412300] [autonomous_state_machine]: [GoalState] ENTER — GPS/odom goal reached, publishing goal_reached
