@@ -21,6 +21,7 @@ setup(
     description='Autonomous state machine ROS2 node.',
     license='BSD-3-Clause',
     extras_require={
+        'terrain': ['rasterio>=1.3,<2'],
         'test': [
             'pytest',
         ],

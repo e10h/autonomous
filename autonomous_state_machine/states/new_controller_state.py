@@ -2,9 +2,9 @@ from autonomous_state_machine.states.state_class import State
 from autonomous_state_machine.pp import PurePursuit
 from autonomous_state_machine.align import AlignAndMove
 import autonomous_state_machine.config as config
-import os
 import math
 import numpy as np
+from geometry_msgs.msg import Twist
 
 class NewControllerState(State):
     def __init__(self, shared_data, state_instance):
@@ -14,6 +14,11 @@ class NewControllerState(State):
 
     def on_enter(self):
         with self.shared_data.mutex:
+            # Retire the previous controller before considering a new mission.
+            # A rejected route must not leave stale motion commands running.
+            self.shared_data.controller = None
+            self.shared_data.navigation_blocked = True
+            self.shared_data.auton_publisher.publish(Twist())
             waypoints = self.shared_data.new_waypoints_odom
             if len(waypoints) < 2:
                 self.log("odom waypoints not ready — cannot init controller", logtype="error")
@@ -21,25 +26,21 @@ class NewControllerState(State):
                 return
 
             # Check if global terrain/rock obstacles require global Theta* path generation
-            enable_slope_oa = os.getenv("YONDER_ENABLE_SLOPE_AWARENESS", "1").lower() in ("1", "true", "yes")
             gm = getattr(self.shared_data, "global_map", None)
-            if enable_slope_oa and gm is not None and getattr(gm, "static_slope_data", None) is not None:
+            if gm is not None and getattr(gm, "static_slope_data", None) is not None:
                 start_pt = waypoints[0]
                 goal_pt = waypoints[-1]
                 planned = gm.get_path(
                     start_pt[0], start_pt[1],
                     goal_pt[0], goal_pt[1],
-                    robot_radius_m=0.35
+                    robot_radius_m=config.OA_ROBOT_RADIUS_M
                 )
                 if len(planned) < 2:
-                    planned = gm.get_path(
-                        start_pt[0], start_pt[1],
-                        goal_pt[0], goal_pt[1],
-                        robot_radius_m=0.28
-                    )
-                if len(planned) >= 2:
-                    self.log(f"[GlobalMap] Injected global Theta* trajectory ({len(planned)} waypoints) around static slope & rock obstacles")
-                    waypoints = planned
+                    self.log("No terrain-safe route at configured rover clearance — holding stopped", logtype="warn")
+                    self.shared_data.new_waypoints_flag = False
+                    return
+                self.log(f"[GlobalMap] Injected directional Theta* route ({len(planned)} waypoints)")
+                waypoints = planned
 
             # Publish planned path for Webots and UI visualization before movement starts
             if getattr(self.shared_data, "oa_path_publisher", None) is not None and len(waypoints) >= 2:
@@ -74,6 +75,7 @@ class NewControllerState(State):
                 )
                 self.log(f"ENTER — PurePursuit initialized, {len(waypoints)} odom waypoints, goal heading {math.degrees(next_orientation):.1f}°")
             self.shared_data.new_waypoints_flag = False
+            self.shared_data.navigation_blocked = False
 
     def step(self):
         with self.shared_data.mutex:

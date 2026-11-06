@@ -415,8 +415,9 @@ class GlobalMapManager:
         # Check if pre-computed anisotropic static slope costmap is available
         if self.static_slope_data is not None:
             static_plan = self._plan_static_slope_path(robot_x, robot_y, target_x, target_y, robot_radius_m=robot_radius_m)
-            if static_plan and len(static_plan) >= 2:
-                return static_plan
+            # A failed static-prior route must not fall back to a weaker local
+            # planner that could bypass directional limits or global cliffs.
+            return static_plan
 
         # 1. Convert global coordinates to grid indices
         start_c = int((robot_x - self.global_origin_x) / self.cell_size_m)
@@ -615,123 +616,52 @@ class GlobalMapManager:
         return None
 
     def _plan_static_slope_path(self, robot_x, robot_y, target_x, target_y, robot_radius_m=0.80):
-        """Plans optimal trajectory directly on 2D anisotropic slope & rock layer."""
-        impassable = self.static_slope_data.get("impassable_mask")
-        if impassable is None:
+        """Use the same directional edge model as global DEM planning.
+
+        Legacy Webots maps have rows in increasing Webots Y; their stored odom
+        gradients are sign-flipped. Convert explicitly at this adapter boundary.
+        """
+        from .terrain import TerrainGrid, TraversabilityLimits
+        from .directional_planner import DirectionalThetaStar, PlanningBudgetExceeded
+        data = self.static_slope_data
+        blocked = data.get("impassable_mask")
+        if blocked is None:
             return []
-            
-        res = float(self.static_slope_data.get("resolution", 0.50))
-        x_min = float(self.static_slope_data.get("x_webots_min", -25.0))
-        y_min = float(self.static_slope_data.get("y_webots_min", -25.0))
-        slope_deg = self.static_slope_data.get("slope_deg", np.zeros_like(impassable, dtype=np.float32))
-        ny, nx = impassable.shape
-        
-        # odom to webots: X_webots = -x_odom, Y_webots = -y_odom
-        sx_w, sy_w = -robot_x, -robot_y
-        gx_w, gy_w = -target_x, -target_y
-        
-        sc = int(np.clip(round((sx_w - x_min) / res), 0, nx - 1))
-        sr = int(np.clip(round((sy_w - y_min) / res), 0, ny - 1))
-        gc = int(np.clip(round((gx_w - x_min) / res), 0, nx - 1))
-        gr = int(np.clip(round((gy_w - y_min) / res), 0, ny - 1))
-        
-        start = (sr, sc)
-        goal = (gr, gc)
-
-        safe_impassable = impassable.copy()
-
-        # Incorporate dynamically perceived obstacles from local depth/pointcloud grid
+        res = float(data.get("resolution", 0.5))
+        x0 = float(data.get("x_webots_min", data.get("x_min", -25.0)))
+        y0 = float(data.get("y_webots_min", data.get("y_min", -25.0)))
+        gx = -np.asarray(data.get("gx_odom", np.zeros_like(blocked, dtype=np.float32)))
+        gy = -np.asarray(data.get("gy_odom", np.zeros_like(blocked, dtype=np.float32)))
+        terrain = TerrainGrid(blocked, gx, gx, gy, gy, x0, y0, res, res)
+        dynamic = np.zeros_like(blocked, dtype=bool)
         if self.global_origin_x is not None and self.global_origin_y is not None:
-            dynamic_mask = (self.grid > self.obstacle_threshold)
-            if self.static_obstacle_mask is not None and self.static_obstacle_mask.shape == self.grid.shape:
-                dynamic_mask = dynamic_mask & (~self.static_obstacle_mask)
-            occupied = np.argwhere(dynamic_mask)
-            if len(occupied) > 0:
-                obs_mask = np.zeros_like(impassable, dtype=bool)
-                ox = self.global_origin_x + occupied[:, 0] * self.cell_size_m
-                oy = self.global_origin_y + occupied[:, 1] * self.cell_size_m
-                obs_c = np.clip(np.round((-ox - x_min) / res).astype(np.int32), 0, nx - 1)
-                obs_r = np.clip(np.round((-oy - y_min) / res).astype(np.int32), 0, ny - 1)
-                obs_mask[obs_r, obs_c] = True
-                radius_cells = max(1, math.ceil(robot_radius_m / res))
-                offsets = np.arange(-radius_cells, radius_cells + 1)
-                disk = offsets[:, None] ** 2 + offsets[None, :] ** 2 <= radius_cells ** 2
-                obs_dilated = binary_dilation(obs_mask, structure=disk)
-                safe_impassable = safe_impassable | obs_dilated
-
-        safe_impassable[start] = False
-        safe_impassable[goal] = False
-        
-        pq = [(0.0, start[0], start[1], 0.0)]
-        cost_so_far = {start: 0.0}
-        parent = {start: None}
-        
-        while pq:
-            f, r, c, g_val = heapq.heappop(pq)
-            if (r, c) == goal:
-                break
-            if g_val > cost_so_far.get((r, c), 1e9):
-                continue
-                
-            for dr in [-1, 0, 1]:
-                for dc in [-1, 0, 1]:
-                    if dr == 0 and dc == 0:
-                        continue
-                    nr, nc = r + dr, c + dc
-                    if nr < 0 or nr >= ny or nc < 0 or nc >= nx:
-                        continue
-                    if safe_impassable[nr, nc]:
-                        continue
-                        
-                    dist = math.hypot(dr * res, dc * res)
-                    cell_slope = slope_deg[nr, nc]
-                    move_cost = dist * (1.0 + (cell_slope / 15.0)**2)
-                    new_g = g_val + move_cost
-                    
-                    if new_g < cost_so_far.get((nr, nc), 1e9):
-                        cost_so_far[(nr, nc)] = new_g
-                        h = math.hypot((nr - goal[0])*res, (nc - goal[1])*res)
-                        heapq.heappush(pq, (new_g + h, nr, nc, new_g))
-                        parent[(nr, nc)] = (r, c)
-                        
-        if goal not in parent:
+            occupied = (self.grid > self.obstacle_threshold)
+            if self.static_obstacle_mask is not None:
+                occupied = occupied & ~self.static_obstacle_mask
+            cells = np.argwhere(occupied)
+            if len(cells):
+                x = -(self.global_origin_x + cells[:, 0] * self.cell_size_m)
+                y = -(self.global_origin_y + cells[:, 1] * self.cell_size_m)
+                cols = np.floor((x - x0) / res + 0.5).astype(int)
+                rows = np.floor((y - y0) / res + 0.5).astype(int)
+                inside = (rows >= 0) & (cols >= 0) & (rows < blocked.shape[0]) & (cols < blocked.shape[1])
+                dynamic[rows[inside], cols[inside]] = True
+        limits = TraversabilityLimits(
+            cliff_deg=float(data.get("cliff_deg", 22.0)),
+            climb_deg=float(data.get("max_climb_deg", 22.0)),
+            descent_deg=float(data.get("max_descent_deg", 22.0)),
+            roll_deg=float(data.get("max_roll_deg", 15.0)))
+        try:
+            planner = DirectionalThetaStar(terrain, limits, robot_radius_m, dynamic)
+            path = planner.plan((-robot_x, -robot_y), (-target_x, -target_y))
+        except (ValueError, PlanningBudgetExceeded) as exc:
+            self.logger.info(f"[GlobalMap] Static directional route unavailable: {exc}")
             return []
-            
-        curr = goal
-        path = []
-        while curr:
-            path.append(curr)
-            curr = parent.get(curr)
-        path.reverse()
-        
-        def line_of_sight(p1, p2, mask):
-            r0, c0 = p1
-            r1, c1 = p2
-            num = max(abs(r1 - r0), abs(c1 - c0)) * 2 + 1
-            rs = np.linspace(r0, r1, num).round().astype(int)
-            cs = np.linspace(c0, c1, num).round().astype(int)
-            return not np.any(mask[rs, cs])
-
-        smooth_path = [path[0]]
-        curr_idx = 0
-        while curr_idx < len(path) - 1:
-            next_idx = len(path) - 1
-            while next_idx > curr_idx + 1:
-                if line_of_sight(path[curr_idx], path[next_idx], safe_impassable):
-                    break
-                next_idx -= 1
-            smooth_path.append(path[next_idx])
-            curr_idx = next_idx
-
-        odom_path = [(robot_x, robot_y)]
-        for p in smooth_path[1:-1]:
-            xw = x_min + p[1] * res
-            yw = y_min + p[0] * res
-            odom_path.append((-xw, -yw))
-        odom_path.append((target_x, target_y))
-            
-        self.logger.info(f"[GlobalMap] Anisotropic static planner generated {len(odom_path)} waypoints through Canyon Pass")
-        return odom_path
+        if not path:
+            self.logger.info("[GlobalMap] No static route satisfies clearance and directional limits")
+            return []
+        self.logger.info(f"[GlobalMap] Direction-aware Theta* generated {len(path)} waypoints")
+        return [(-x, -y) for x, y in path]
 
     def write_ascii_map(self, output_path, robot_x, robot_y, window=40, robot_radius_m=1.0, path_waypoints=None, goal=None):
         """Writes a localized ASCII representation of the grid to output_path for external viewing."""

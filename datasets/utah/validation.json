@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-05",
+  "regression_tests_passed": 72,
+  "real_data_route": "baseline_route.json",
+  "preprocessing_measurement": "preprocessing_benchmark.json",
+  "source_manifest": "mdrs_1m.json",
+  "route_review_status": "unreviewed",
+  "rover_transmission_performed": false,
+  "real_data_case": "448 m low-gradient surveyed Utah baseline; not a real-data cliff-detour acceptance test",
+  "synthetic_directional_barrier_tests_passed": true,
+  "old_canyon_gauntlet_route": "refused by stricter planner at configured limits; baseline demo branch preserved",
+  "pending": [
+    "PLY ingestion",
+    "frontend review and approval",
+    "radio codec and reassembly",
+    "geospatial-to-odom registration",
+    "local OAK-D terrain fusion and controller validation"
+  ]
+}

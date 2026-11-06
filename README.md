@@ -141,3 +141,9 @@ ros2 topic pub /autonomous/heartbeat std_msgs/msg/Bool "data: true" -r 1
 ## Reproducible Canyon Gauntlet demo
 
 See [simulation/canyon_gauntlet/README.md](simulation/canyon_gauntlet/README.md) for the bundled terrain, anisotropic slope map, corrected rover physics, and launcher.
+
+## Global LiDAR macro-route development
+
+See [the implementation guide](docs/GLOBAL_PLANNER.md) and
+[the end-to-end roadmap](docs/LIDAR_NAVIGATION_ROADMAP.md) for tiled Utah DEM
+preprocessing, direction-aware Theta*, and unreviewed sparse route export.

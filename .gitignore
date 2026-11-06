@@ -10,3 +10,8 @@ __pycache__/
 # Reproducible demo inputs and matching map
 !simulation/canyon_gauntlet/real_usgs.tif
 !simulation/canyon_gauntlet/static_slope_costmap.npy
+
+# Downloaded LiDAR rasters and memory-mapped planning artifacts
+/data/
+/terrain_artifacts/
+/routes/

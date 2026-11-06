@@ -1,0 +1,32 @@
+{
+  "provider": "USGS 3DEP",
+  "catalog_api": "https://tnmaccess.nationalmap.gov/api/v1/products",
+  "catalog_query": {
+    "datasets": "Digital Elevation Model (DEM) 1 meter",
+    "bbox": "-110.81,38.39,-110.77,38.42"
+  },
+  "title": "USGS 1 Meter 12 x51y426 UT_StatewideSouth_2020_A20",
+  "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/UT_StatewideSouth_2020_A20/TIFF/USGS_1M_12_x51y426_UT_StatewideSouth_2020_A20.tif",
+  "source_id": "61caa869d34e0fd3e7b21aad",
+  "publication_date": "2021-12-17",
+  "catalog_size_bytes": 285961785,
+  "source_resolution_m": 1.0,
+  "local_download": "data/utah/mdrs_1m.tif",
+  "notes": "Native 1 m LiDAR-derived elevation DEM. No claim of 10-20 cm horizontal resolution. Used without synthetic terrain modifications.",
+  "downloaded_size_bytes": 237125773,
+  "sha256": "72d72315d5b1ace785df78c76c1568340002118e8621f6ca686fca14034c2f6d",
+  "crs": "EPSG:26912",
+  "shape": [
+    10012,
+    10012
+  ],
+  "horizontal_units": "metre",
+  "vertical_scale_used_to_m": 1.0,
+  "baseline_crop_bounds": [
+    517200,
+    4252000,
+    518400,
+    4253200
+  ],
+  "baseline_crop_bounds_crs": "EPSG:26912"
+}

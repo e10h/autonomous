@@ -172,3 +172,12 @@ def test_collinear_waypoint_pruning_maintains_sparse_safe_waypoints():
     # In open terrain, straight shot should prune down to start and goal
     path = gm.get_path(0.0, 0.0, 0.0, 8.0, target_type='NED', robot_radius_m=0.5)
     assert len(path) == 2, f"Open terrain should prune to 2 sparse waypoints, got {len(path)}"
+
+
+def test_static_no_route_never_falls_back_to_isotropic_local_plan():
+    gm = GlobalMapManager(map_size_m=20.0, cell_size_m=0.10, logger=DummyLogger())
+    gm.static_slope_data = {'impassable_mask': np.ones((40,40),dtype=bool),
+                            'x_min':-10.0,'y_min':-10.0,'resolution':0.5}
+    gm.initialize_origin(0.0,0.0)
+    gm._theta_star = lambda *args: pytest.fail('Unsafe isotropic fallback was invoked')
+    assert gm.get_path(0.0,0.0,0.0,5.0,target_type='NED',robot_radius_m=0.5)==[]

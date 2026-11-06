@@ -1,0 +1,41 @@
+{
+  "schema": "yonder.terrain.v1",
+  "source_name": "mdrs_1m.tif",
+  "source_sha256": "72d72315d5b1ace785df78c76c1568340002118e8621f6ca686fca14034c2f6d",
+  "crs": "EPSG:26912",
+  "crs_wkt": "PROJCS[\"NAD83 / UTM zone 12N\",GEOGCS[\"NAD83\",DATUM[\"North_American_Datum_1983\",SPHEROID[\"GRS 1980\",6378137,298.257222101,AUTHORITY[\"EPSG\",\"7019\"]],AUTHORITY[\"EPSG\",\"6269\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4269\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-111],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"26912\"]]",
+  "coordinate_unit": "metre",
+  "source_horizontal_unit": "metre",
+  "source_horizontal_to_m": 1.0,
+  "vertical_scale_to_m": 1.0,
+  "native_resolution_m": 1.0,
+  "resolution_m": 2.0,
+  "x0": 517200.9999767296,
+  "y0": 4253199.999999459,
+  "dx": 2.0,
+  "dy": -2.0,
+  "shape": [
+    601,
+    601
+  ],
+  "aggregation_factor": 2,
+  "source_window": [
+    6805,
+    7206,
+    1201,
+    1201
+  ],
+  "gradient_bounds": "conservative component intervals",
+  "limits": {
+    "cliff_deg": 22.0,
+    "climb_deg": 22.0,
+    "descent_deg": 22.0,
+    "roll_deg": 15.0,
+    "uphill_weight": 1.0,
+    "downhill_weight": 1.5,
+    "roll_weight": 3.0
+  },
+  "unknown_policy": "blocked",
+  "review_status": "unreviewed",
+  "terrain_id": "9880746127b181162f434b7e98a67760c2d3c1187b802694d62e9f1a842d1f74"
+}

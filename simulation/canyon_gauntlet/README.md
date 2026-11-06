@@ -83,6 +83,15 @@ for this static terrain example; the matching precomputed slope map is enabled.
 
 ## Verification
 
+The recorded simulation validation below belongs to baseline commit `628e6ab`.
+The global-planning development branch now uses stricter segment/footprint
+checks and the configured rover radius. It refuses the old Gauntlet route at
+those limits instead of shrinking the radius or driving a direct fallback.
+This fixture must be reviewed/redesigned before it is an acceptance course for
+the new planner. The original runnable demonstration remains on
+`demo/canyon-gauntlet-physics-fix`.
+
+
 The five anisotropic planner regression tests passed in the ROS container.
 The packaged launcher was tested with a reset copy of the bundled world and
 completed the intended nonzero goal with a reported 0.60 m error. No physics or

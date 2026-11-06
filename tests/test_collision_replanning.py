@@ -80,3 +80,23 @@ def test_segment_drift_stops_for_realign_instead_of_driving_blind():
     linear, angular, done = ctrl.calc_velocity(sd)
     assert (linear, angular, done) == (0.0, 0.0, False)
     assert ctrl.phase == "align"
+
+
+def test_rejected_static_route_stops_and_never_shrinks_rover_clearance():
+    from autonomous_state_machine.states.new_controller_state import NewControllerState
+    from autonomous_state_machine import config
+    requests=[];commands=[]
+    def no_route(*args,**kwargs):
+        requests.append(kwargs['robot_radius_m'])
+        return []
+    sd=SimpleNamespace(mutex=Lock(),controller=object(),navigation_blocked=False,
+        auton_publisher=SimpleNamespace(publish=commands.append),
+        new_waypoints_odom=[(0,0),(4,0)],new_waypoints_flag=True,logger=Logger(),
+        global_map=SimpleNamespace(static_slope_data={},get_path=no_route))
+    state=NewControllerState(sd,SimpleNamespace(new_controller_state='hold',drive_state='drive'))
+    state.on_enter()
+    assert requests==[config.OA_ROBOT_RADIUS_M]
+    assert sd.controller is None and sd.navigation_blocked
+    assert not sd.new_waypoints_flag
+    assert commands[-1].linear.x==0 and commands[-1].angular.z==0
+    assert state.step()=='hold'
