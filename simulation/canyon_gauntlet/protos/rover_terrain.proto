@@ -255,7 +255,6 @@ PROTO rover_terrain [
           axis 0.000241 -0.999986 0.005356
           anchor 0.052519 0.246143 0.012927
           springConstant 100
-          dampingConstant 20
         }
         device [
           PositionSensor {
@@ -515,7 +514,6 @@ PROTO rover_terrain [
                 axis 0.000000 0.000000 1.000000
                 anchor 0.250216 0.144462 -0.038100
                 springConstant 50
-                dampingConstant 15
               }
               device [
                 PositionSensor {
@@ -1322,7 +1320,6 @@ PROTO rover_terrain [
           axis -0.000241 0.999986 -0.005364
           anchor 0.052635 -0.239619 0.016797
           springConstant 100
-          dampingConstant 20
         }
         device [
           PositionSensor {
@@ -1582,7 +1579,6 @@ PROTO rover_terrain [
                 axis 0.000000 -0.000000 1.000000
                 anchor 0.250216 -0.144462 -0.038100
                 springConstant 50
-                dampingConstant 15
               }
               device [
                 PositionSensor {

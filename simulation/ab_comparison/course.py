@@ -153,8 +153,8 @@ def build(output):
 EXTERNPROTO "../../canyon_gauntlet/protos/rover_terrain.proto"
 WorldInfo {{ basicTimeStep 16 randomSeed 7 title "Isotropic vs Anisotropic - chasm comparison"
   contactProperties [
-    ContactProperties {{ material1 "default" material2 "default" coulombFriction [ 1.2 ] bounce 0 forceDependentSlip [ 0.005 ] maxContactJoints 8 }}
-    ContactProperties {{ material1 "default" material2 "scree" coulombFriction [ {SCREE_FRICTION} ] bounce 0 forceDependentSlip [ 0.005 ] maxContactJoints 8 }}
+    ContactProperties {{ material1 "default" material2 "default" coulombFriction [ 1.2 ] bounce 0 maxContactJoints 8 }}
+    ContactProperties {{ material1 "default" material2 "scree" coulombFriction [ {SCREE_FRICTION} ] bounce 0 maxContactJoints 8 }}
   ] }}
 Viewpoint {{ {view} }}
 Background {{ skyColor [ 0.08 0.10 0.14 ] }}
