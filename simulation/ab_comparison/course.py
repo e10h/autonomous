@@ -106,13 +106,13 @@ ROCK_TEX_COORD_INDEX = (
 )
 
 
-def make_boulder_vrml(name: str, x: float, y: float, z: float, scale: float = 11.5, mass: float = 450.0) -> str:
+def make_boulder_vrml(name: str, x: float, y: float, z: float, scale: float = 11.5) -> str:
     scaled_pts = ' '.join(f'{p[0]*scale:.4f} {p[1]*scale:.4f} {p[2]*scale:.4f}' for p in ROCK_BASE_VERTICES)
     radius = 0.065 * scale  # ~0.75m
     return f'''DEF {name.upper()} Solid {{
   translation {x:.2f} {y:.2f} {z:.3f}
   name "{name}"
-  locked FALSE
+  locked TRUE
   children [
     Shape {{
       appearance PBRAppearance {{
@@ -137,14 +137,6 @@ def make_boulder_vrml(name: str, x: float, y: float, z: float, scale: float = 11
   ]
   boundingObject Sphere {{
     radius {radius:.2f}
-  }}
-  physics Physics {{
-    density -1
-    mass {mass}
-    damping Damping {{
-      linear 0.4
-      angular 0.4
-    }}
   }}
 }}'''
 
@@ -339,7 +331,7 @@ DirectionalLight {{ direction -0.3 0.4 -1 intensity 1.2 ambientIntensity 0.65 }}
         pieces.append(f'DEF {mode.upper()}_ACTIVE_TRAIL Group {{ children [ ] }}')
         # Boulder obstacle (authentic 3D textured rock mesh with real 450kg dynamic ODE gravity physics)
         rock_z = float(elevation(ROCK_POS[0], ROCK_POS[1])) + 0.65
-        pieces.append(make_boulder_vrml(f"{mode}_rock", offset + ROCK_POS[0], ROCK_POS[1], rock_z, scale=11.5, mass=450.0))
+        pieces.append(make_boulder_vrml(f"{mode}_rock", offset + ROCK_POS[0], ROCK_POS[1], rock_z, scale=11.5))
         # Red tape along the chasm lip.
         for x0 in np.arange(-10, 10.1, 1.0):
             pieces.append(f'Transform {{ translation {offset + x0:.2f} {CHASM_Y + 0.25} {float(elevation(x0, CHASM_Y + 0.25)) + .05:.4f} '

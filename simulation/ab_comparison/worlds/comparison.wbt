@@ -24,7 +24,7 @@ DEF ISOTROPIC_ACTIVE_TRAIL Group { children [ ] }
 DEF ISOTROPIC_ROCK Solid {
   translation -17.00 9.00 0.648
   name "isotropic_rock"
-  locked FALSE
+  locked TRUE
   children [
     Shape {
       appearance PBRAppearance {
@@ -49,14 +49,6 @@ DEF ISOTROPIC_ROCK Solid {
   ]
   boundingObject Sphere {
     radius 0.75
-  }
-  physics Physics {
-    density -1
-    mass 450.0
-    damping Damping {
-      linear 0.4
-      angular 0.4
-    }
   }
 }
 Transform { translation -29.00 -2.75 -0.1586 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0.05 0.05 } geometry Box { size 0.5 0.12 0.04 } } ] }
@@ -104,7 +96,7 @@ DEF ANISOTROPIC_ACTIVE_TRAIL Group { children [ ] }
 DEF ANISOTROPIC_ROCK Solid {
   translation 21.00 9.00 0.648
   name "anisotropic_rock"
-  locked FALSE
+  locked TRUE
   children [
     Shape {
       appearance PBRAppearance {
@@ -129,14 +121,6 @@ DEF ANISOTROPIC_ROCK Solid {
   ]
   boundingObject Sphere {
     radius 0.75
-  }
-  physics Physics {
-    density -1
-    mass 450.0
-    damping Damping {
-      linear 0.4
-      angular 0.4
-    }
   }
 }
 Transform { translation 9.00 -2.75 -0.1586 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0.05 0.05 } geometry Box { size 0.5 0.12 0.04 } } ] }

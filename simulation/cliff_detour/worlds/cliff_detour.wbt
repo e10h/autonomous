@@ -22,7 +22,7 @@ DEF UNAWARE_ACTIVE_TRAIL Group { children [ ] }
 DEF UNAWARE_ROCK Solid {
   translation -16.00 0.00 0.650
   name "unaware_rock"
-  locked FALSE
+  locked TRUE
   children [
     Shape {
       appearance PBRAppearance {
@@ -46,11 +46,6 @@ DEF UNAWARE_ROCK Solid {
     }
   ]
   boundingObject Sphere { radius 0.748 }
-  physics Physics {
-    density -1
-    mass 450.0
-    centerOfMass [ 0 0 0 ]
-  }
 }
 Transform { translation -30.00 -1.5 -0.4051 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0 0 roughness 0.3 } geometry Box { size 0.7 0.1 0.03 } } ] }
 Transform { translation -29.00 -1.5 -0.4051 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0 0 roughness 0.3 } geometry Box { size 0.7 0.1 0.03 } } ] }
@@ -96,7 +91,7 @@ DEF TERRAIN_AWARE_ACTIVE_TRAIL Group { children [ ] }
 DEF TERRAIN_AWARE_ROCK Solid {
   translation 16.00 0.00 0.650
   name "terrain_aware_rock"
-  locked FALSE
+  locked TRUE
   children [
     Shape {
       appearance PBRAppearance {
@@ -120,11 +115,6 @@ DEF TERRAIN_AWARE_ROCK Solid {
     }
   ]
   boundingObject Sphere { radius 0.748 }
-  physics Physics {
-    density -1
-    mass 450.0
-    centerOfMass [ 0 0 0 ]
-  }
 }
 Transform { translation 2.00 -1.5 -0.4051 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0 0 roughness 0.3 } geometry Box { size 0.7 0.1 0.03 } } ] }
 Transform { translation 3.00 -1.5 -0.4051 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0 0 roughness 0.3 } geometry Box { size 0.7 0.1 0.03 } } ] }

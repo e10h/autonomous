@@ -24,7 +24,7 @@ DEF UNAWARE_ACTIVE_TRAIL Group { children [ ] }
 DEF UNAWARE_ROCK Solid {
   translation -30.00 0.00 -1.593
   name "unaware_rock"
-  locked FALSE
+  locked TRUE
   children [
     Shape {
       appearance PBRAppearance {
@@ -48,11 +48,6 @@ DEF UNAWARE_ROCK Solid {
     }
   ]
   boundingObject Sphere { radius 0.748 }
-  physics Physics {
-    density -1
-    mass 450.0
-    centerOfMass [ 0 0 0 ]
-  }
 }
 Transform { translation -44.00 -2.2 0.0500 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0 0 roughness 0.3 } geometry Box { size 0.7 0.1 0.03 } } ] }
 Transform { translation -43.00 -2.2 0.0500 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0 0 roughness 0.3 } geometry Box { size 0.7 0.1 0.03 } } ] }
@@ -99,7 +94,7 @@ DEF ISOTROPIC_ACTIVE_TRAIL Group { children [ ] }
 DEF ISOTROPIC_ROCK Solid {
   translation 0.00 0.00 -1.593
   name "isotropic_rock"
-  locked FALSE
+  locked TRUE
   children [
     Shape {
       appearance PBRAppearance {
@@ -123,11 +118,6 @@ DEF ISOTROPIC_ROCK Solid {
     }
   ]
   boundingObject Sphere { radius 0.748 }
-  physics Physics {
-    density -1
-    mass 450.0
-    centerOfMass [ 0 0 0 ]
-  }
 }
 Transform { translation -14.00 -2.2 0.0500 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0 0 roughness 0.3 } geometry Box { size 0.7 0.1 0.03 } } ] }
 Transform { translation -13.00 -2.2 0.0500 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0 0 roughness 0.3 } geometry Box { size 0.7 0.1 0.03 } } ] }
@@ -184,7 +174,7 @@ DEF ANISOTROPIC_ACTIVE_TRAIL Group { children [ ] }
 DEF ANISOTROPIC_ROCK Solid {
   translation 30.00 0.00 -1.593
   name "anisotropic_rock"
-  locked FALSE
+  locked TRUE
   children [
     Shape {
       appearance PBRAppearance {
@@ -208,11 +198,6 @@ DEF ANISOTROPIC_ROCK Solid {
     }
   ]
   boundingObject Sphere { radius 0.748 }
-  physics Physics {
-    density -1
-    mass 450.0
-    centerOfMass [ 0 0 0 ]
-  }
 }
 Transform { translation 16.00 -2.2 0.0500 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0 0 roughness 0.3 } geometry Box { size 0.7 0.1 0.03 } } ] }
 Transform { translation 17.00 -2.2 0.0500 children [ Shape { appearance PBRAppearance { baseColor 1 0.1 0.1 emissiveColor 0.8 0 0 roughness 0.3 } geometry Box { size 0.7 0.1 0.03 } } ] }
